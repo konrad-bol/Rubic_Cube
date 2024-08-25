@@ -3,38 +3,17 @@ defmodule Rubic.Fun do
   alias Rubic.Construct
   alias Rubic.Helper
   def right(cube) do
-    face = Map.get(cube,:red_face)
-    |> Stream.cycle()
-    |> Stream.drop(6)
-    |> Enum.take(8)
-    Map.put(cube,:red_face,face)
-    side = Map.get(cube,:vertical_right_side)
-    |> Stream.cycle()
-    |> Stream.drop(9)
-    |> Enum.take(12)
-    Map.put(cube,:vertical_right_side,side)
-    |> Construct.construct(:red)
+    cube
   end
 
   def left(cube) do
-    side = Map.get(cube,:vertical_left_side)
-    |> Stream.cycle()
-    |> Stream.drop(9)
-    |> Enum.take(12)
-    Map.put(cube,:vertical_left_side,side)
-    |> Construct.construct(:vertical)
+    cube
   end
+
   def up(cube) do
-    side = Map.get(cube,:horizontal_up_side)
-    |> Stream.cycle()
-    |> Stream.drop(9)
-    |> Enum.take(12)
-    cube = Map.put(cube,:horizontal_up_side,side)
 
-
-
+    cube = Helper.rotate_side(cube,:horizontal_up_side,true)
     list_to_updated=[[{5,9},{6,8},{7,7},{8,6},{9,5}],[{5,5},{6,6},{7,7},{8,8},{9,9}]]
-
 
     pairs=[[{:vertical_right_side,Map.get(cube,:front_back_side)},
           {:vertical_middle_side,Map.get(cube,:front_middle_side)},
@@ -43,7 +22,7 @@ defmodule Rubic.Fun do
           {:front_middle_side,Map.get(cube,:vertical_middle_side)},
           {:front_back_side,Map.get(cube,:vertical_right_side)}]]
           |> Enum.zip(list_to_updated)
-    |>IO.inspect()
+
     #update the vertical space in "U" move
     Enum.reduce(pairs,cube, fn {pair,list},acc ->
 
@@ -71,6 +50,10 @@ defmodule Rubic.Fun do
 #     |> elem(1)
 #   end)
 
+  end
+
+  def down(cube) do
+    cube
   end
 
   def front(cube) do
@@ -117,6 +100,10 @@ defmodule Rubic.Fun do
       end)
       |> elem(1)
     end)
+  end
+
+  def back(cube) do
+  cube
   end
 
 
