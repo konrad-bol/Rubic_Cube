@@ -60,13 +60,13 @@ defmodule RubicTest do
     assert cube == %{
       vertical_right_side:    [:white,:white,:white,:blue,:blue,:blue,:yellow,:yellow,:yellow,:green,:green,:green],
       vertical_middle_side:   [:white,:white,:white,:blue,:blue,:blue,:yellow,:yellow,:yellow,:green,:green,:green],
-      vertical_left_side:     [:green,:green,:green,:white,:white,:white,:blue,:blue,:blue,:yellow,:yellow,:yellow,],
-      front_face_side:        [:white,:white,:green,:orange,:orange,:orange,:blue,:yellow,:yellow,:red,:red,:red],
-      front_middle_side:      [:white,:white,:green,:orange,:orange,:orange,:blue,:yellow,:yellow,:red,:red,:red],
-      front_back_side:        [:white,:white,:green,:orange,:orange,:orange,:blue,:yellow,:yellow,:red,:red,:red],
-      horizontal_up_side:     [:red,:red,:red,:blue,:blue,:white,:orange,:orange,:orange,:yellow,:green,:green],
-      horizontal_middle_side: [:red,:red,:red,:blue,:blue,:white,:orange,:orange,:orange,:yellow,:green,:green],
-      horizontal_down_side:   [:red,:red,:red,:blue,:blue,:white,:orange,:orange,:orange,:yellow,:green,:green],
+      vertical_left_side:     [:blue,:blue,:blue,:yellow,:yellow,:yellow,:green,:green,:green,:white,:white,:white],
+      front_face_side:        [:white,:white,:blue,:orange,:orange,:orange,:green,:yellow,:yellow,:red,:red,:red],
+      front_middle_side:      [:white,:white,:blue,:orange,:orange,:orange,:green,:yellow,:yellow,:red,:red,:red],
+      front_back_side:        [:white,:white,:blue,:orange,:orange,:orange,:green,:yellow,:yellow,:red,:red,:red],
+      horizontal_up_side:     [:red,:red,:red,:blue,:blue,:yellow,:orange,:orange,:orange,:white,:green,:green],
+      horizontal_middle_side: [:red,:red,:red,:blue,:blue,:yellow,:orange,:orange,:orange,:white,:green,:green],
+      horizontal_down_side:   [:red,:red,:red,:blue,:blue,:yellow,:orange,:orange,:orange,:white,:green,:green],
 
   }
   end
