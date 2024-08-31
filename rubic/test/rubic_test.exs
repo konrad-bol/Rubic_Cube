@@ -104,4 +104,67 @@ defmodule RubicTest do
 
   }
   end
+  test "prime L move" do
+    cube = %Rubic{}
+    |> Rubic.Fun.left()
+    |> Rubic.Fun.left()
+    |> Rubic.Fun.left()
+    assert cube == Rubic.Fun.left_prime(%Rubic{})
+  end
+  test "prime R move" do
+    cube = %Rubic{}
+    |> Rubic.Fun.right()
+    |> Rubic.Fun.right()
+    |> Rubic.Fun.right()
+    assert cube == Rubic.Fun.right_prime(%Rubic{})
+  end
+  test "prime U move" do
+    cube = %Rubic{}
+    |> Rubic.Fun.up()
+    |> Rubic.Fun.up()
+    |> Rubic.Fun.up()
+    assert cube == Rubic.Fun.up_prime(%Rubic{})
+  end
+  test "prime D move" do
+    cube = %Rubic{}
+    |> Rubic.Fun.down()
+    |> Rubic.Fun.down()
+    |> Rubic.Fun.down()
+    assert cube == Rubic.Fun.down_prime(%Rubic{})
+  end
+  test "prime F move" do
+    cube = %Rubic{}
+    |> Rubic.Fun.front()
+    |> Rubic.Fun.front()
+    |> Rubic.Fun.front()
+    assert cube == Rubic.Fun.front_prime(%Rubic{})
+  end
+  test "prime B move" do
+    cube = %Rubic{}
+    |> Rubic.Fun.back()
+    |> Rubic.Fun.back()
+    |> Rubic.Fun.back()
+    assert cube == Rubic.Fun.back_prime(%Rubic{})
+  end
+  test "prime E move" do
+    cube = %Rubic{}
+    |> Rubic.Fun.e_move()
+    |> Rubic.Fun.e_move()
+    |> Rubic.Fun.e_move()
+    assert cube == Rubic.Fun.e_move_prime(%Rubic{})
+  end
+  test "prime M move" do
+    cube = %Rubic{}
+    |> Rubic.Fun.m_move()
+    |> Rubic.Fun.m_move()
+    |> Rubic.Fun.m_move()
+    assert cube == Rubic.Fun.m_move_prime(%Rubic{})
+  end
+  test "prime S move" do
+    cube = %Rubic{}
+    |> Rubic.Fun.s_move()
+    |> Rubic.Fun.s_move()
+    |> Rubic.Fun.s_move()
+    assert cube == Rubic.Fun.s_move_prime(%Rubic{})
+  end
 end

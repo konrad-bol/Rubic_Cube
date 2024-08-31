@@ -65,27 +65,61 @@ def get_pairs_helper(list,tail,side,cube)when side not in [:right,:front,:up] do
   |> Enum.split(3)
   [first_part,last_part]
 end
-def create_lists(side) do
+def create_lists(side,prime?) when prime? == false do
   case side do
-    :right -> create_list(:right,11,8)
-    :left -> create_list(:left,5,6)
-    :up -> create_list(:up,5,9)
-    :down -> create_list(:down,11,11)
-    :front -> create_list(:front,2,2)
-    :back -> create_list(:back,8,0)
-
+    :right -> create_list_1(:right,11,8)
+    :left -> create_list_1(:left,5,6)
+    :up -> create_list_1(:up,5,9)
+    :down -> create_list_1(:down,11,11)
+    :front -> create_list_1(:front,2,2)
+    :back -> create_list_1(:back,8,0)
+    :m_move -> create_list(:m_move,4,7)
+    :e_move -> create_list(:e_move,4,4)
+    :s_move -> create_list(:s_move,1,1)
   end
 end
-  def create_list(side,a,b) when side in [:right,:down,:front] do
-    list_a = Enum.map(a..a+4,&(Integer.mod(&1,12)))
-    list_b = Enum.map(b..b+4,&(Integer.mod(&1,12)))
-    [Enum.zip(list_a,list_b)] ++ [Enum.zip(list_b,Enum.reverse(list_a))]
-    #|>Enum.split(5)
+def create_lists(side,prime?) when prime? == true do
+  case side do
+    :right -> create_list_2(:right,11,8)
+    :left -> create_list_2(:left,5,6)
+    :up -> create_list_2(:up,5,9)
+    :down -> create_list_2(:down,11,11)
+    :front -> create_list_2(:front,2,2)
+    :back -> create_list_2(:back,8,0)
+    :m_move -> create_list(:m_move,4,1)
+    :e_move -> create_list(:e_move,4,10)
+    :s_move -> create_list(:s_move,1,7)
   end
-  def create_list(side,a,b) when side in [:left,:up,:back] do
-    list_a = Enum.map(a..a+4,&(Integer.mod(&1,12)))
-    list_b = Enum.map(b..b-4,&(Integer.mod(&1,12)))
-    [Enum.zip(list_a,list_b)] ++ [Enum.zip(list_b,Enum.reverse(list_a))]
-    #|>Enum.split(5)
-  end
+end
+def create_list(side,a,b) when side in [:m_move,:e_move,:s_move] do
+  list_a = Enum.map([a,a+6],&(Integer.mod(&1,12)))
+  list_b = Enum.map([b,b+6],&(Integer.mod(&1,12)))
+  [Enum.zip(list_a,list_b)] ++ [Enum.zip(list_b,Enum.reverse(list_a))]
+  #|>Enum.split(5)
+end
+
+def create_list_1(side,a,b) when side in [:right,:down,:front] do
+  list_a = Enum.map(a..a+4,&(Integer.mod(&1,12)))
+  list_b = Enum.map(b..b+4,&(Integer.mod(&1,12)))
+  [Enum.zip(list_a,list_b)] ++ [Enum.zip(list_b,Enum.reverse(list_a))]
+  #|>Enum.split(5)
+end
+def create_list_1(side,a,b) when side in [:left,:up,:back] do
+  list_a = Enum.map(a..a+4,&(Integer.mod(&1,12)))
+  list_b = Enum.map(b..b-4,&(Integer.mod(&1,12)))
+  [Enum.zip(list_a,list_b)] ++ [Enum.zip(list_b,Enum.reverse(list_a))]
+  #|>Enum.split(5)
+end
+def create_list_2(side,a,b) when side in [:right,:down,:front] do
+  list_a = Enum.map(a..a+4,&(Integer.mod(&1,12)))
+  list_b = Enum.map(b+4..b,&(Integer.mod(&1,12)))
+  [Enum.zip(list_a,list_b)] ++ [Enum.zip(list_b,Enum.reverse(list_a))]
+  #|>Enum.split(5)
+end
+def create_list_2(side,a,b) when side in [:left,:up,:back] do
+  list_a = Enum.map(a..a+4,&(Integer.mod(&1,12)))
+  list_b = Enum.map(b-4..b,&(Integer.mod(&1,12)))
+  [Enum.zip(list_a,list_b)] ++ [Enum.zip(list_b,Enum.reverse(list_a))]
+  #|>Enum.split(5)
+end
 end
