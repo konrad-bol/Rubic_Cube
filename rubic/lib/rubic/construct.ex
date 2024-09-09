@@ -2,8 +2,11 @@ defmodule Rubic.Construct do
   require Math
   def calculate_position(r_circle,r_dot) do
     list=[125.0,150.0,175.0]
+    omega=55.3
+    parm1=5
+    parm2=3.5
     #|>Enum.map( &(calcul_helper(r_circle,201,&1)))
-    deg_pos= Enum.map(list,&(52.293-calcul_helper(r_circle,164.32,&1))) ++ Enum.map(list, &(calcul_helper(r_circle,201,&1)))++ Enum.map(list,&(52.293+calcul_helper(r_circle,164.32,&1)))++Enum.map(list,&(calcul_helper(r_circle,201,&1)*-1))
+    deg_pos=  Enum.map(list, &(calcul_helper(r_circle,201,&1)))++ Enum.map(list,&(omega-calcul_helper(r_circle,164.32,&1)+parm1))++Enum.map(list,&(calcul_helper(r_circle,201,&1)*-1))++ Enum.map(list,&(omega+calcul_helper(r_circle,164.32,&1)-parm2))
     convert_positon(deg_pos,r_circle,r_dot)
   end
   def calcul_helper(a,b,c) do

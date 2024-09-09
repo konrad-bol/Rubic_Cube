@@ -117,7 +117,10 @@
         <div class="dot-1" style={"left:293px; background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:vertical_right_side),11))  <>";transform: rotate(73deg) translate(124px);"}   >11</div>
 -->
       <%= for {style, index} <- Enum.with_index(Rubic.Construct.combine_position(@cube,:vertical_right_side,175,1), 1) do %>
-    <div id={Integer.to_string(index)<>"-ver"} class="dot-1" style={style}></div>
+    <div id={Integer.to_string(index)<>"-ver-right"} class="dot-1" style={style}></div>
+        <% end %>
+        <%= for {style, index} <- Enum.with_index(Rubic.Construct.combine_position(@cube,:vertical_middle_side,150,1), 1) do %>
+    <div id={Integer.to_string(index)<>"-ver-midd"} class="dot-1" style={style}></div>
         <% end %>
 
     </div></div></div>
