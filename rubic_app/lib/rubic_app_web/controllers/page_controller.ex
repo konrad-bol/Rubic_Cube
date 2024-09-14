@@ -147,4 +147,146 @@ defmodule RubicAppWeb.PageController do
     |> assign(:method, :put)
     |> render(:rubic,layout: false)
   end
+  def e_move(conn,_params) do
+    cube = conn
+    |> get_session(:cube)
+    |> Rubic.Fun.e_move()
+    conn
+    |> put_session(:cube,cube)
+    |> assign(:cube,cube)
+    |> assign(:form, Phoenix.HTML.FormData.to_form(%{"guess"=> 3},as: "make_move"))
+    |> assign(:method, :put)
+    |> render(:rubic,layout: false)
+  end
+  def s_move(conn,_params) do
+    cube = conn
+    |> get_session(:cube)
+    |> Rubic.Fun.s_move()
+    conn
+    |> put_session(:cube,cube)
+    |> assign(:cube,cube)
+    |> assign(:form, Phoenix.HTML.FormData.to_form(%{"guess"=> 3},as: "make_move"))
+    |> assign(:method, :put)
+    |> render(:rubic,layout: false)
+  end
+  def m_move(conn,_params) do
+    cube = conn
+    |> get_session(:cube)
+    |> Rubic.Fun.m_move()
+    conn
+    |> put_session(:cube,cube)
+    |> assign(:cube,cube)
+    |> assign(:form, Phoenix.HTML.FormData.to_form(%{"guess"=> 3},as: "make_move"))
+    |> assign(:method, :put)
+    |> render(:rubic,layout: false)
+  end
+  def x_move(conn,_params) do
+    cube = conn
+    |> get_session(:cube)
+    |> Rubic.Fun.x_move()
+    conn
+    |> put_session(:cube,cube)
+    |> assign(:cube,cube)
+    |> assign(:form, Phoenix.HTML.FormData.to_form(%{"guess"=> 3},as: "make_move"))
+    |> assign(:method, :put)
+    |> render(:rubic,layout: false)
+  end
+  def y_move(conn,_params) do
+    cube = conn
+    |> get_session(:cube)
+    |> Rubic.Fun.y_move()
+    conn
+    |> put_session(:cube,cube)
+    |> assign(:cube,cube)
+    |> assign(:form, Phoenix.HTML.FormData.to_form(%{"guess"=> 3},as: "make_move"))
+    |> assign(:method, :put)
+    |> render(:rubic,layout: false)
+  end
+  def z_move(conn,_params) do
+    cube = conn
+    |> get_session(:cube)
+    |> Rubic.Fun.z_move()
+    conn
+    |> put_session(:cube,cube)
+    |> assign(:cube,cube)
+    |> assign(:form, Phoenix.HTML.FormData.to_form(%{"guess"=> 3},as: "make_move"))
+    |> assign(:method, :put)
+    |> render(:rubic,layout: false)
+  end
+  def e_prime_move(conn,_params) do
+    cube = conn
+    |> get_session(:cube)
+    |> Rubic.Fun.e_move_prime()
+    conn
+    |> put_session(:cube,cube)
+    |> assign(:cube,cube)
+    |> assign(:form, Phoenix.HTML.FormData.to_form(%{"guess"=> 3},as: "make_move"))
+    |> assign(:method, :put)
+    |> render(:rubic,layout: false)
+  end
+  def s_prime_move(conn,_params) do
+    cube = conn
+    |> get_session(:cube)
+    |> Rubic.Fun.s_move_prime()
+    conn
+    |> put_session(:cube,cube)
+    |> assign(:cube,cube)
+    |> assign(:form, Phoenix.HTML.FormData.to_form(%{"guess"=> 3},as: "make_move"))
+    |> assign(:method, :put)
+    |> render(:rubic,layout: false)
+  end
+  def m_prime_move(conn,_params) do
+    cube = conn
+    |> get_session(:cube)
+    |> Rubic.Fun.m_move_prime()
+    conn
+    |> put_session(:cube,cube)
+    |> assign(:cube,cube)
+    |> assign(:form, Phoenix.HTML.FormData.to_form(%{"guess"=> 3},as: "make_move"))
+    |> assign(:method, :put)
+    |> render(:rubic,layout: false)
+  end
+  def x_prime_move(conn,_params) do
+    cube = conn
+    |> get_session(:cube)
+    |> Rubic.Fun.x_move_prime()
+    conn
+    |> put_session(:cube,cube)
+    |> assign(:cube,cube)
+    |> assign(:form, Phoenix.HTML.FormData.to_form(%{"guess"=> 3},as: "make_move"))
+    |> assign(:method, :put)
+    |> render(:rubic,layout: false)
+  end
+  def y_prime_move(conn,_params) do
+    cube = conn
+    |> get_session(:cube)
+    |> Rubic.Fun.y_move_prime()
+    conn
+    |> put_session(:cube,cube)
+    |> assign(:cube,cube)
+    |> assign(:form, Phoenix.HTML.FormData.to_form(%{"guess"=> 3},as: "make_move"))
+    |> assign(:method, :put)
+    |> render(:rubic,layout: false)
+  end
+  def z_prime_move(conn,_params) do
+    cube = conn
+    |> get_session(:cube)
+    |> Rubic.Fun.z_move_prime()
+    conn
+    |> put_session(:cube,cube)
+    |> assign(:cube,cube)
+    |> assign(:form, Phoenix.HTML.FormData.to_form(%{"guess"=> 3},as: "make_move"))
+    |> assign(:method, :put)
+    |> render(:rubic,layout: false)
+  end
+  def move(conn, %{"move_value" => move_value}) do
+    cube = conn
+    |> get_session(:cube)
+    conn
+    |> put_session(:cube,cube)
+    |> assign(:cube,cube)
+    |> assign(:form, Phoenix.HTML.FormData.to_form(%{"guess"=> 3},as: "make_move"))
+    |> assign(:method, :put)
+    |> render(:rubic,layout: false)
+  end
 end

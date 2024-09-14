@@ -32,6 +32,21 @@ defmodule RubicAppWeb.Router do
     put "/rubic/dp", PageController, :d_prime_move
     put "/rubic/fp", PageController, :f_prime_move
     put "/rubic/bp", PageController, :b_prime_move
+
+    put "/rubic/m", PageController, :m_move
+    put "/rubic/s", PageController, :s_move
+    put "/rubic/e", PageController, :e_move
+    put "/rubic/x", PageController, :x_move
+    put "/rubic/y", PageController, :y_move
+    put "/rubic/z", PageController, :z_move
+
+    put "/rubic/mp", PageController, :m_prime_move
+    put "/rubic/sp", PageController, :s_prime_move
+    put "/rubic/ep", PageController, :e_prime_move
+    put "/rubic/xp", PageController, :x_prime_move
+    put "/rubic/yp", PageController, :y_prime_move
+    put "/rubic/zp", PageController, :z_prime_move
+    post "/rubic/move", PageController, :z_prime_move
   end
 
   # Other scopes may use custom stacks.

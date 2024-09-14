@@ -10,6 +10,22 @@
     <title>Okrąg z punktami</title>
     <style>
         /* Styl dla kontenera */
+    
+
+        .com{
+            position: absolute;
+width: 50px;
+height: 10px;
+top: 120px; /* Nowa wartość */
+left: 100px; /* Nowa wartość */
+z-index: 10;
+background-color: var(--background);
+color: var(--purple-3);
+            font-size: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
         :root {
             --purple-1: #3d0066; /* Kolor dodatkowy */
             --purple-2: #5c0099;
@@ -56,82 +72,46 @@
     <div class="circle large-1">
     <div class="circle medium-1">
     <div class="circle small-1">
-        
-        <!--<div class="dot-1" style={ "background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_face_side),11))<>";transform: rotate(3deg)   translate(124px);"}  >   11</div>
-        <div class="dot-1" style={ "background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_face_side),10))<>"; transform: rotate(-9.5deg)  translate(124px);"}>  10</div>
-        <div class="dot-1" style={ "background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_face_side),9)) <>"; transform: rotate(-22.5deg)  translate(124px) ;"}> 9</div>
-        <div class="dot-1" style={ "background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_face_side),8)) <>"; transform: rotate(-45deg) translate(124px);"} >    8</div>
-        <div class="dot-1" style={ "background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_face_side),7)) <>"; transform: rotate(-57deg) translate(124px);"} >    7</div>
-        <div class="dot-1" style={ "background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_face_side),6)) <>"; transform: rotate(-69deg) translate(124px);"} >    6</div>
-        <div class="dot-1" style={ "background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_face_side),0)) <>"; transform: rotate(45deg) translate(124px);"}>      0 </div>
-        <div class="dot-1" style={ "background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_face_side),1)) <>"; transform: rotate(57deg) translate(124px);"}>      1 </div>
-        <div class="dot-1" style={ "background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_face_side),2)) <>"; transform: rotate(69deg) translate(124px);"}>      2 </div>
-        <div class="dot-1" style={ "background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_face_side),3)) <>"; transform: rotate(107deg)  translate(124px);" } >  3</div>
-        <div class="dot-1" style={ "background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_face_side),4)) <>"; transform: rotate(119deg)  translate(124px);" } >  4</div>
-        <div class="dot-1" style={ "background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_face_side),5)) <>"; transform: rotate(132deg)   translate(124px); " }> 5</div>
 
-        <div class="dot-1" style={"background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_middle_side),11))  <>";transform: rotate(6deg)   translate(149px);"}>11</div>
-        <div class="dot-1" style={"background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_middle_side),10))  <>";transform: rotate(-4.5deg)  translate(149px);"}>10</div>
-        <div class="dot-1" style={"background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_middle_side),9))   <>";transform: rotate(-15.5deg)  translate(149px);"}>9</div>
-        <div class="dot-1" style={"background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_middle_side),8))   <>";transform: rotate(-44deg) translate(149px);"}>9</div>
-        <div class="dot-1" style={"background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_middle_side),7))   <>";transform: rotate(-54deg) translate(149px);"}>7</div>
-        <div class="dot-1" style={"background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_middle_side),6))   <>";transform: rotate(-64.5deg) translate(149px);"}>6</div>
-        <div class="dot-1" style={"background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_middle_side),0))   <>";transform: rotate(44deg) translate(149px);"}>0</div>
-        <div class="dot-1" style={"background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_middle_side),1))   <>";transform: rotate(54deg) translate(149px);"}>1</div>
-        <div class="dot-1" style={"background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_middle_side),2))   <>";transform: rotate(64.5deg) translate(149px);"}>2</div>
-        <div class="dot-1" style={"background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_middle_side),5))   <>";transform: rotate(125deg)   translate(149px);"}>5</div>
-        <div class="dot-1" style={"background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_middle_side),4))   <>";transform: rotate(114deg)  translate(149px);"}>4</div>
-        <div class="dot-1" style={"background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_middle_side),3))   <>";transform: rotate(103deg)  translate(149px);"}>3</div>
-
-        <div class="dot-1" style={"background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_back_side),11))<>";transform: rotate(11deg)   translate(174px);"  }>  11</div>
-        <div class="dot-1" style={"background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_back_side),9))<>";transform: rotate(-9deg)  translate(174px);"    }>  9</div>
-        <div class="dot-1" style={"background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_back_side),10)) <>";transform: rotate(1deg)  translate(174px);"   }>  10</div>
-        <div class="dot-1" style={"background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_back_side),8)) <>";transform: rotate(-41.5deg) translate(174px);" }> 8 </div>
-        <div class="dot-1" style={"background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_back_side),7)) <>";transform: rotate(-50.5deg) translate(174px);" }> 7 </div>
-        <div class="dot-1" style={"background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_back_side),6)) <>";transform: rotate(-60deg) translate(174px);"   }> 6 </div>
-        <div class="dot-1" style={"background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_back_side),0)) <>";transform: rotate(41.5deg) translate(174px);"  }> 0 </div>
-        <div class="dot-1" style={"background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_back_side),1)) <>";transform: rotate(50.5deg) translate(174px);"  }> 1 </div>
-        <div class="dot-1" style={"background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_back_side),2)) <>";transform: rotate(60deg) translate(174px);"    }> 2 </div>
-        <div class="dot-1" style={"background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_back_side),3)) <>";transform: rotate(99deg)   translate(174px);"  }> 3 </div>
-        <div class="dot-1" style={"background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_back_side),4)) <>";transform: rotate(108.5deg)  translate(174px);"}> 4 </div>
-        <div class="dot-1" style={"background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:front_back_side),5)) <>";transform: rotate(119deg)  translate(174px);"  }> 5 </div>
-
-        <div class="dot-1" style={"left:293px; background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:vertical_left_side),3))   <>";transform: rotate(169deg)   translate(174px);" }>3</div>
-        <div class="dot-1" style={"left:293px; background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:vertical_left_side),4))   <>";transform: rotate(179deg)  translate(174px);"  }>4</div>
-        <div class="dot-1" style={"left:293px; background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:vertical_left_side),5))   <>";transform: rotate(189deg)  translate(174px);"  }>5</div>
-        <div class="dot-1" style={"left:293px; background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:vertical_middle_side),3)) <>";transform: rotate(174deg) translate(149px);"   }>3</div>
-        <div class="dot-1" style={"left:293px; background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:vertical_middle_side),4)) <>";transform: rotate(184.5deg) translate(149px);" }>4</div>
-        <div class="dot-1" style={"left:293px; background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:vertical_middle_side),5)) <>";transform: rotate(195.5deg) translate(149px);" }>5</div>
-        <div class="dot-1" style={"left:293px; background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:vertical_right_side),3))  <>";transform: rotate(177deg) translate(124px);"   }>3</div>
-        <div class="dot-1" style={"left:293px; background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:vertical_right_side),4))  <>";transform: rotate(189.5deg) translate(124px);" }>4</div>
-        <div class="dot-1" style={"left:293px; background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:vertical_right_side),5))  <>";transform: rotate(202deg) translate(124px);"   }>5</div>
-
-        <div class="dot-1" style={"left:293px; background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:vertical_left_side),9))   <>";transform: rotate(61deg)   translate(174px);"}  >9</div>
-        <div class="dot-1" style={"left:293px; background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:vertical_left_side),10))   <>";transform: rotate(71deg)  translate(174px);"}  >10</div>
-        <div class="dot-1" style={"left:293px; background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:vertical_left_side),11))   <>";transform: rotate(81deg)  translate(174px);"}  >11</div>
-        <div class="dot-1" style={"left:293px; background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:vertical_middle_side),9)) <>";transform: rotate(54deg) translate(149px);"}    >9</div>
-        <div class="dot-1" style={"left:293px; background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:vertical_middle_side),10)) <>";transform: rotate(65.5deg) translate(149px);"} >10</div>
-        <div class="dot-1" style={"left:293px; background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:vertical_middle_side),11)) <>";transform: rotate(76deg) translate(149px);"}   >11</div>
-        <div class="dot-1" style={"left:293px; background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:vertical_right_side),9))  <>";transform: rotate(48deg) translate(124px);"}    >9</div>
-        <div class="dot-1" style={"left:293px; background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:vertical_right_side),10))  <>";transform: rotate(60.5deg) translate(124px);"} >10</div>
-        <div class="dot-1" style={"left:293px; background-color: "<>Atom.to_string(Enum.at(Map.fetch!(Map.from_struct(@cube),:vertical_right_side),11))  <>";transform: rotate(73deg) translate(124px);"}   >11</div>
--->
-      <%= for {style, index} <- Enum.with_index(Rubic.Construct.combine_position(@cube,:vertical_right_side,175,1), 1) do %>
+        <div class="com" style=" transform: rotate(200deg) translate(178px) rotate(90deg);">B move</div>
+        <div class="com" style=" transform: rotate(220deg) translate(153px) rotate(90deg);">S move</div>
+        <div class="com" style=" transform: rotate(240deg) translate(128px) rotate(90deg);">F move</div>
+      <%= for {style, index} <- Enum.with_index(Rubic.Construct.combine_position(@cube,:front_face_side,125,1), 1) do %>
     <div id={Integer.to_string(index)<>"-ver-right"} class="dot-1" style={style}></div>
         <% end %>
-        <%= for {style, index} <- Enum.with_index(Rubic.Construct.combine_position(@cube,:vertical_middle_side,150,1), 1) do %>
+        <%= for {style, index} <- Enum.with_index(Rubic.Construct.combine_position(@cube,:front_middle_side,150,1), 1) do %>
     <div id={Integer.to_string(index)<>"-ver-midd"} class="dot-1" style={style}></div>
+        <% end %>
+        <%= for {style, index} <- Enum.with_index(Rubic.Construct.combine_position(@cube,:front_back_side,175,1), 1) do %>
+    <div id={Integer.to_string(index)<>"-ver-left"} class="dot-1" style={style}></div>
         <% end %>
 
     </div></div></div>
 
     <div class="circle large-2">
     <div class="circle medium-1">
-    <div class="circle small-1"></div></div></div>
+    <div class="circle small-1">
+        <div class="com" style=" transform: rotate(-80deg) translate(177px) rotate(90deg);">L move</div>
+        <div class="com" style=" transform: rotate(-60deg) translate(152px) rotate(90deg);">M move</div>
+        <div class="com" style=" transform: rotate(-40deg) translate(127px) rotate(90deg);">R move</div>
+        <%= for {style, index} <- Enum.with_index(Rubic.Construct.combine_position_right(@cube,:vertical_right_side,125,1), 1) do %>
+        <div id={Integer.to_string(index)<>"-ver-right"} class="dot-1" style={style}></div>
+            <% end %>
+            <%= for {style, index} <- Enum.with_index(Rubic.Construct.combine_position_right(@cube,:vertical_middle_side,150,1), 1) do %>
+        <div id={Integer.to_string(index)<>"-ver-midd"} class="dot-1" style={style}></div>
+            <% end %>
+            <%= for {style, index} <- Enum.with_index(Rubic.Construct.combine_position_right(@cube,:vertical_left_side,175,1), 1) do %>
+        <div id={Integer.to_string(index)<>"-ver-left"} class="dot-1" style={style}></div>
+            <% end %>
+    </div></div></div>
 </div>
     <div class="circle large-3">
     <div class="circle medium-1">
-    <div class="circle small-1"></div></div></div>
+    <div class="circle small-1">
+        <div class="com" style=" transform: rotate(100deg) translate(173px) rotate(90deg);">U move</div>
+        <div class="com" style=" transform: rotate(120deg) translate(152px) rotate(90deg);">E move</div>
+        <div class="com" style=" transform: rotate(140deg) translate(123px) rotate(90deg);">D move</div>
+    </div></div></div>
 </div>
 <div class="button-window">
 <div class="row">
@@ -154,45 +134,80 @@
     <.form for={@form} action="/rubic/b" method= "put" >
         <button type="submit">B</button>
     </.form>
-    <.form for={@form} action="/rubic/r" method= "put" >
+    <.form for={@form} action="/rubic/e" method= "put" >
         <button type="submit">E</button>
     </.form>
-    <.form for={@form} action="/rubic/r" method= "put" >
+    <.form for={@form} action="/rubic/m" method= "put" >
         <button type="submit">M</button>
     </.form>
-    <.form for={@form} action="/rubic/r" method= "put" >
+    <.form for={@form} action="/rubic/s" method= "put" >
         <button type="submit">S</button>
+    </.form>
+    <.form for={@form} action="/rubic" method= "get" >
+        <button style="width:100px" type="submit">restart</button>
     </.form>
     </div>
     <div class="row">
-    <.form for={@form} action="/rubic/r" method= "put" >
+    <.form for={@form} action="/rubic/rp" method= "put" >
         <button type="submit">R'</button>
     </.form>
-    <.form for={@form} action="/rubic/l" method= "put" >
-        <button type="submit">L</button>
+    <.form for={@form} action="/rubic/lp" method= "put" >
+        <button type="submit">L`</button>
     </.form>
-    <.form for={@form} action="/rubic/u" method= "put" >
-        <button type="submit">U</button>
+    <.form for={@form} action="/rubic/up" method= "put" >
+        <button type="submit">U`</button>
     </.form>
-    <.form for={@form} action="/rubic/d" method= "put" >
-        <button type="submit">D</button>
+    <.form for={@form} action="/rubic/dp" method= "put" >
+        <button type="submit">D`</button>
     </.form>
-    <.form for={@form} action="/rubic/f" method= "put" >
-        <button type="submit">F</button>
+    <.form for={@form} action="/rubic/fp" method= "put" >
+        <button type="submit">F`</button>
     </.form>
-    <.form for={@form} action="/rubic/b" method= "put" >
-        <button type="submit">B</button>
+    <.form for={@form} action="/rubic/bp" method= "put" >
+        <button type="submit">B`</button>
     </.form>
-    <.form for={@form} action="/rubic/r" method= "put" >
-        <button type="submit">E</button>
+    <.form for={@form} action="/rubic/ep" method= "put" >
+        <button type="submit">E`</button>
     </.form>
-    <.form for={@form} action="/rubic/r" method= "put" >
-        <button type="submit">M</button>
+    <.form for={@form} action="/rubic/mp" method= "put" >
+        <button type="submit">M`</button>
     </.form>
-    <.form for={@form} action="/rubic/r" method= "put" >
-        <button type="submit">S</button>
+    <.form for={@form} action="/rubic/sp" method= "put" >
+        <button type="submit">S`</button>
+    </.form>
+    <.form for={@form} action="/rubic" method= "get" >
+        <button style="width:100px" type="submit">help</button>
     </.form>
     </div>
+    <div class="row">
+    <.form for={@form} action="/rubic/x" method= "put" >
+        <button type="submit">X</button>
+    </.form>
+        <.form for={@form} action="/rubic/y" method= "put" >
+        <button type="submit">Y</button>
+    </.form>
+        <.form for={@form} action="/rubic/z" method= "put" >
+        <button type="submit">Z</button>
+    </.form>
+    
+    <.form for={@form} action="/rubic/xp" method= "put" >
+        <button type="submit">X`</button>
+    </.form>
+        <.form for={@form} action="/rubic/yp" method= "put" >
+        <button type="submit">Y`</button>
+    </.form>
+        <.form for={@form} action="/rubic/zp" method= "put" >
+        <button type="submit">Z`</button>
+    </.form>
+    <.form for={@form} action="/rubic/move" method="post">
+        <input class="custom-input" name="move_value" placeholder="Enter value" type="text">
+        <button type="submit">√</button>
+    </.form>
+    <.form for={@form} action="/rubic" method= "get" >
+        <button style="width:100px" type="submit">mix</button>
+    </.form>
+    </div>
+
 </div>
 </div>
 

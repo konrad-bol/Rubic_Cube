@@ -22,7 +22,7 @@ defmodule Rubic.Fun do
     list_to_updated=Helper.create_lists(:left,false)
     Helper.get_pairs(:left,cube)
     |> Enum.zip(list_to_updated)
-    |>update_sides(cube)
+    |> update_sides(cube)
   end
   def left_prime(cube) do
     cube = Helper.rotate_side(cube,:vertical_left_side,true)
@@ -136,17 +136,35 @@ defmodule Rubic.Fun do
     |> m_move_prime()
     |> right()
   end
+  def x_move_prime(cube) do
+    cube
+    |> left()
+    |> m_move()
+    |> right_prime()
+  end
   def y_move(cube) do
     cube
     |> up()
     |> e_move_prime()
     |> down_prime()
   end
+  def y_move_prime(cube) do
+    cube
+    |> up_prime()
+    |> e_move()
+    |> down()
+  end
   def z_move(cube) do
     cube
     |> front()
     |> s_move()
     |> back_prime()
+  end
+  def z_move_prime(cube) do
+    cube
+    |> front_prime()
+    |> s_move_prime()
+    |> back()
   end
   def update_sides(pairs,cube) do
     Enum.reduce(pairs,cube, fn {pair,list},struct_cube ->
