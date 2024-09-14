@@ -282,6 +282,18 @@ defmodule RubicAppWeb.PageController do
   def move(conn, %{"move_value" => move_value}) do
     cube = conn
     |> get_session(:cube)
+    |> Rubic.User.multiple_move(move_value)
+    conn
+    |> put_session(:cube,cube)
+    |> assign(:cube,cube)
+    |> assign(:form, Phoenix.HTML.FormData.to_form(%{"guess"=> 3},as: "make_move"))
+    |> assign(:method, :put)
+    |> render(:rubic,layout: false)
+  end
+  def mix_cube(conn, _parms) do
+    cube = conn
+    |> get_session(:cube)
+    |> Rubic.User.mix_cube()
     conn
     |> put_session(:cube,cube)
     |> assign(:cube,cube)

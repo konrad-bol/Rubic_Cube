@@ -46,7 +46,8 @@ defmodule RubicAppWeb.Router do
     put "/rubic/xp", PageController, :x_prime_move
     put "/rubic/yp", PageController, :y_prime_move
     put "/rubic/zp", PageController, :z_prime_move
-    post "/rubic/move", PageController, :z_prime_move
+    post "/rubic/move", PageController, :move
+    post "/rubic/mix", PageController, :mix_cube
   end
 
   # Other scopes may use custom stacks.

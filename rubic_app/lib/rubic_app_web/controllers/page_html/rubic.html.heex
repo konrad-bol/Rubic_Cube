@@ -56,7 +56,7 @@ color: var(--purple-3);
 <div class="grid grid-cols-8 gap-4">
     <div><.button style="width: 50px;">cube</.button></div>
     <div class="col-start-6">
-    <.button>base move</.button>
+    <.button>basic moves</.button>
     </div>
 
   <div class="col-start-7"><.button>tutorial</.button></div>
@@ -73,16 +73,16 @@ color: var(--purple-3);
     <div class="circle medium-1">
     <div class="circle small-1">
 
-        <div class="com" style=" transform: rotate(200deg) translate(178px) rotate(90deg);">B move</div>
-        <div class="com" style=" transform: rotate(220deg) translate(153px) rotate(90deg);">S move</div>
-        <div class="com" style=" transform: rotate(240deg) translate(128px) rotate(90deg);">F move</div>
-      <%= for {style, index} <- Enum.with_index(Rubic.Construct.combine_position(@cube,:front_face_side,125,1), 1) do %>
+        <div class="com" style=" transform: rotate(200deg) translate(178px) rotate(90deg);">--- B move</div>
+        <div class="com" style=" transform: rotate(220deg) translate(153px) rotate(90deg);">S move ---</div>
+        <div class="com" style=" transform: rotate(240deg) translate(128px) rotate(90deg);">F move ---</div>
+      <%= for {style, index} <- Enum.with_index(Rubic.Construct.combine_position(@cube,:front_face_side,125,-1), 1) do %>
     <div id={Integer.to_string(index)<>"-ver-right"} class="dot-1" style={style}></div>
         <% end %>
-        <%= for {style, index} <- Enum.with_index(Rubic.Construct.combine_position(@cube,:front_middle_side,150,1), 1) do %>
+        <%= for {style, index} <- Enum.with_index(Rubic.Construct.combine_position(@cube,:front_middle_side,150,-1), 1) do %>
     <div id={Integer.to_string(index)<>"-ver-midd"} class="dot-1" style={style}></div>
         <% end %>
-        <%= for {style, index} <- Enum.with_index(Rubic.Construct.combine_position(@cube,:front_back_side,175,1), 1) do %>
+        <%= for {style, index} <- Enum.with_index(Rubic.Construct.combine_position(@cube,:front_back_side,175,-1), 1) do %>
     <div id={Integer.to_string(index)<>"-ver-left"} class="dot-1" style={style}></div>
         <% end %>
 
@@ -91,12 +91,12 @@ color: var(--purple-3);
     <div class="circle large-2">
     <div class="circle medium-1">
     <div class="circle small-1">
-        <div class="com" style=" transform: rotate(-80deg) translate(177px) rotate(90deg);">L move</div>
-        <div class="com" style=" transform: rotate(-60deg) translate(152px) rotate(90deg);">M move</div>
-        <div class="com" style=" transform: rotate(-40deg) translate(127px) rotate(90deg);">R move</div>
+        <div class="com" style=" transform: rotate(-80deg) translate(177px) rotate(90deg);">--- L move</div>
+        <div class="com" style=" transform: rotate(-60deg) translate(152px) rotate(90deg);">--- M move</div>
+        <div class="com" style=" transform: rotate(-40deg) translate(127px) rotate(90deg);">R move ---</div>
         <%= for {style, index} <- Enum.with_index(Rubic.Construct.combine_position_right(@cube,:vertical_right_side,125,1), 1) do %>
         <div id={Integer.to_string(index)<>"-ver-right"} class="dot-1" style={style}></div>
-            <% end %>
+        <% end %>
             <%= for {style, index} <- Enum.with_index(Rubic.Construct.combine_position_right(@cube,:vertical_middle_side,150,1), 1) do %>
         <div id={Integer.to_string(index)<>"-ver-midd"} class="dot-1" style={style}></div>
             <% end %>
@@ -108,9 +108,9 @@ color: var(--purple-3);
     <div class="circle large-3">
     <div class="circle medium-1">
     <div class="circle small-1">
-        <div class="com" style=" transform: rotate(100deg) translate(173px) rotate(90deg);">U move</div>
-        <div class="com" style=" transform: rotate(120deg) translate(152px) rotate(90deg);">E move</div>
-        <div class="com" style=" transform: rotate(140deg) translate(123px) rotate(90deg);">D move</div>
+        <div class="com" style=" transform: rotate(100deg) translate(173px) rotate(90deg);">--- U move</div>
+        <div class="com" style=" transform: rotate(120deg) translate(152px) rotate(90deg);">E move ---</div>
+        <div class="com" style=" transform: rotate(140deg) translate(123px) rotate(90deg);">D move ---</div>
     </div></div></div>
 </div>
 <div class="button-window">
@@ -203,7 +203,7 @@ color: var(--purple-3);
         <input class="custom-input" name="move_value" placeholder="Enter value" type="text">
         <button type="submit">√</button>
     </.form>
-    <.form for={@form} action="/rubic" method= "get" >
+    <.form for={@form} action="/rubic/mix" method= "post" >
         <button style="width:100px" type="submit">mix</button>
     </.form>
     </div>
@@ -220,7 +220,7 @@ color: var(--purple-3);
 </div>
 <div class="basic-container"> 
    <svg id="wave" style="position: absolute;top: -50px;transform:rotate(180deg); transition: 0.3s; height: 400px; width: 100%;" viewBox="0 0 1440 300" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(61, 0, 102, 1)" offset="0%"></stop><stop stop-color="rgba(61, 0, 102, 1)" offset="100%"></stop></linearGradient></defs><path style="transform:translate(0, 0px); opacity:1" fill="url(#sw-gradient-0)" d="M0,150L48,145C96,140,192,130,288,145C384,160,480,200,576,200C672,200,768,160,864,130C960,100,1056,80,1152,85C1248,90,1344,120,1440,120C1536,120,1632,90,1728,90C1824,90,1920,120,2016,125C2112,130,2208,110,2304,130C2400,150,2496,210,2592,210C2688,210,2784,150,2880,150C2976,150,3072,210,3168,240C3264,270,3360,270,3456,230C3552,190,3648,110,3744,90C3840,70,3936,110,4032,120C4128,130,4224,110,4320,100C4416,90,4512,90,4608,95C4704,100,4800,110,4896,110C4992,110,5088,100,5184,120C5280,140,5376,190,5472,195C5568,200,5664,160,5760,160C5856,160,5952,200,6048,215C6144,230,6240,220,6336,195C6432,170,6528,130,6624,120C6720,110,6816,130,6864,140L6912,150L6912,300L6864,300C6816,300,6720,300,6624,300C6528,300,6432,300,6336,300C6240,300,6144,300,6048,300C5952,300,5856,300,5760,300C5664,300,5568,300,5472,300C5376,300,5280,300,5184,300C5088,300,4992,300,4896,300C4800,300,4704,300,4608,300C4512,300,4416,300,4320,300C4224,300,4128,300,4032,300C3936,300,3840,300,3744,300C3648,300,3552,300,3456,300C3360,300,3264,300,3168,300C3072,300,2976,300,2880,300C2784,300,2688,300,2592,300C2496,300,2400,300,2304,300C2208,300,2112,300,2016,300C1920,300,1824,300,1728,300C1632,300,1536,300,1440,300C1344,300,1248,300,1152,300C1056,300,960,300,864,300C768,300,672,300,576,300C480,300,384,300,288,300C192,300,96,300,48,300L0,300Z"></path><defs><linearGradient id="sw-gradient-1" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(92, 0, 153, 1)" offset="0%"></stop><stop stop-color="rgba(92, 0, 153, 1)" offset="100%"></stop></linearGradient></defs><path style="transform:translate(0, 50px); opacity:0.9" fill="url(#sw-gradient-1)" d="M0,30L48,25C96,20,192,10,288,20C384,30,480,60,576,85C672,110,768,130,864,140C960,150,1056,150,1152,130C1248,110,1344,70,1440,70C1536,70,1632,110,1728,135C1824,160,1920,170,2016,185C2112,200,2208,220,2304,190C2400,160,2496,80,2592,80C2688,80,2784,160,2880,200C2976,240,3072,240,3168,215C3264,190,3360,140,3456,135C3552,130,3648,170,3744,180C3840,190,3936,170,4032,140C4128,110,4224,70,4320,80C4416,90,4512,150,4608,150C4704,150,4800,90,4896,75C4992,60,5088,90,5184,125C5280,160,5376,200,5472,220C5568,240,5664,240,5760,210C5856,180,5952,120,6048,110C6144,100,6240,140,6336,135C6432,130,6528,80,6624,60C6720,40,6816,50,6864,55L6912,60L6912,300L6864,300C6816,300,6720,300,6624,300C6528,300,6432,300,6336,300C6240,300,6144,300,6048,300C5952,300,5856,300,5760,300C5664,300,5568,300,5472,300C5376,300,5280,300,5184,300C5088,300,4992,300,4896,300C4800,300,4704,300,4608,300C4512,300,4416,300,4320,300C4224,300,4128,300,4032,300C3936,300,3840,300,3744,300C3648,300,3552,300,3456,300C3360,300,3264,300,3168,300C3072,300,2976,300,2880,300C2784,300,2688,300,2592,300C2496,300,2400,300,2304,300C2208,300,2112,300,2016,300C1920,300,1824,300,1728,300C1632,300,1536,300,1440,300C1344,300,1248,300,1152,300C1056,300,960,300,864,300C768,300,672,300,576,300C480,300,384,300,288,300C192,300,96,300,48,300L0,300Z"></path><defs><linearGradient id="sw-gradient-2" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(200, 107, 250, 1)" offset="0%"></stop><stop stop-color="rgba(200, 107, 250, 1)" offset="100%"></stop></linearGradient></defs><path style="transform:translate(0, 100px); opacity:1" fill="url(#sw-gradient-2)" d="M0,60L48,90C96,120,192,180,288,190C384,200,480,160,576,120C672,80,768,40,864,50C960,60,1056,120,1152,125C1248,130,1344,80,1440,50C1536,20,1632,10,1728,15C1824,20,1920,40,2016,75C2112,110,2208,160,2304,195C2400,230,2496,250,2592,260C2688,270,2784,270,2880,265C2976,260,3072,250,3168,240C3264,230,3360,220,3456,215C3552,210,3648,210,3744,180C3840,150,3936,90,4032,80C4128,70,4224,110,4320,125C4416,140,4512,130,4608,150C4704,170,4800,220,4896,205C4992,190,5088,110,5184,100C5280,90,5376,150,5472,180C5568,210,5664,210,5760,175C5856,140,5952,70,6048,40C6144,10,6240,20,6336,25C6432,30,6528,30,6624,70C6720,110,6816,190,6864,230L6912,270L6912,300L6864,300C6816,300,6720,300,6624,300C6528,300,6432,300,6336,300C6240,300,6144,300,6048,300C5952,300,5856,300,5760,300C5664,300,5568,300,5472,300C5376,300,5280,300,5184,300C5088,300,4992,300,4896,300C4800,300,4704,300,4608,300C4512,300,4416,300,4320,300C4224,300,4128,300,4032,300C3936,300,3840,300,3744,300C3648,300,3552,300,3456,300C3360,300,3264,300,3168,300C3072,300,2976,300,2880,300C2784,300,2688,300,2592,300C2496,300,2400,300,2304,300C2208,300,2112,300,2016,300C1920,300,1824,300,1728,300C1632,300,1536,300,1440,300C1344,300,1248,300,1152,300C1056,300,960,300,864,300C768,300,672,300,576,300C480,300,384,300,288,300C192,300,96,300,48,300L0,300Z"></path></svg>
-    <h3> basic move</h3>
+    <h3> basic moves</h3>
     <div class="grid grid-cols-4 gap-4">
  <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">R</div>
  <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">R'</div>

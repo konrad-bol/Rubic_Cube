@@ -2,15 +2,13 @@ defmodule Rubic.Construct do
   require Math
   def calculate_position(r_circle,r_dot) do
     list=[125.0,150.0,175.0]
-    omega=55.3
-    parm1=5
-    parm2=3.5
-    #|>Enum.map( &(calcul_helper(r_circle,201,&1)))
+    omega=Math.atan(1.5)|>Math.rad2deg()
+
     deg_pos=
     Enum.map(list, &(calcul_helper(r_circle,201,&1)))++
-    Enum.map(list,&(omega+calcul_helper(r_circle,164.32,&1)-parm2))++
+    Enum.map(list,&(omega+calcul_helper(r_circle,180.278,&1)))++
     Enum.reverse(Enum.map(list,&(calcul_helper(r_circle,201,&1)*-1)))++
-    Enum.reverse(Enum.map(list,&(omega-calcul_helper(r_circle,164.32,&1)+parm1)))
+    Enum.reverse(Enum.map(list,&(omega-calcul_helper(r_circle,180.278,&1))))
     convert_positon(deg_pos,r_circle,r_dot)
   end
   def calcul_helper(a,b,c) do
@@ -19,7 +17,7 @@ defmodule Rubic.Construct do
   end
   def convert_positon(list,r_circle,r_dot) do
     list
-    |> Enum.map(&("transform: rotate("<>Float.to_string(&1)<>"deg) "<>"translate("<>Integer.to_string(r_circle-r_dot)<>"px);"))
+    |> Enum.map(&("transform: rotate("<>Float.to_string(&1)<>"deg) "<>"translate("<>Integer.to_string(r_circle+r_dot)<>"px);"))
   end
   def get_color_list(cube,side) do
     Map.get(cube,side)
@@ -31,11 +29,9 @@ defmodule Rubic.Construct do
 
 def calculate_position_right(r_circle,r_dot) do
   list=[125.0,150.0,175.0]
-  omega=55.3
-  parm1=5
-  parm2=3.5
-  #|>Enum.map( &(calcul_helper(r_circle,201,&1)))
-  deg_pos=   Enum.map(list,&(omega+calcul_helper(r_circle,164.32,&1)-parm2+65))++ Enum.reverse(Enum.map(list,&(omega-calcul_helper(r_circle,164.32,&1)+parm1+65)))
+  omega=Math.atan(1.5)|>Math.rad2deg()
+
+  deg_pos=   Enum.map(list,&(180 -omega+calcul_helper(r_circle,180.278,&1)))++ Enum.reverse(Enum.map(list,&(180-omega-calcul_helper(r_circle,180.278,&1))))
   convert_positon(deg_pos,r_circle,r_dot)
 end
 def combine_position_right(cube,side,r,r_d) do
