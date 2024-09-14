@@ -1,9 +1,8 @@
-defmodule Rubic.Solve.Solver do
+defmodule Solve.Solver do
   alias Rubic.Fun
   def search_edges_right(cube,color) do
     #cube=%Rubic{}|> Rubic.Fun.up()|> Rubic.Fun.up()|> Rubic.Fun.back_prime()
     vr=[:vertical_right_side,:vertical_right_side,:vertical_right_side,:vertical_right_side]
-
     h_list=[:horizontal_down_side,:horizontal_middle_side,:horizontal_up_side,:horizontal_middle_side]
     vr_h_index= Enum.zip([1,4,7,10],[1,2,1,0])
     Enum.zip(vr,h_list)
@@ -12,12 +11,12 @@ defmodule Rubic.Solve.Solver do
         |>Enum.find_index(&(&1==color))
         |>case do
           nil ->place ++ [:non]
-          0  ->place ++ [{v,v_index}]
+          0  ->place ++ [{vr,v_index}]
           1 -> place ++ [{h,h_index}]
         end
        end)
   end
-  def search_edges_right(cube,color) do
+  def search_edges_left(cube,color) do
     #cube=%Rubic{}|> Rubic.Fun.up()|> Rubic.Fun.up()|> Rubic.Fun.back_prime()
     vl=[:vertical_left_side,:vertical_left_side,:vertical_left_side,:vertical_left_side]
     h_list=[:horizontal_down_side,:horizontal_middle_side,:horizontal_up_side,:horizontal_middle_side]
@@ -28,9 +27,13 @@ defmodule Rubic.Solve.Solver do
         |> Enum.find_index(&(&1==color))
         |> case do
             nil ->place ++ [:non]
-            0  ->place ++ [{v,v_index}]
+            0  ->place ++ [{vl,v_index}]
             1 -> place ++ [{h,h_index}]
+
           end
       end)
+  end
+  def search_edges_middle(cube,color) do
+    v_index=[0,2,3,5,6,8,9,11]
   end
 end
