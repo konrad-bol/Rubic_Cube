@@ -1,5 +1,5 @@
 defmodule Solve.Solver do
-  alias Rubic.Fun
+  #alias Rubic.Fun
   def search_edges_right(cube,color) do
     #cube=%Rubic{}|> Rubic.Fun.up()|> Rubic.Fun.up()|> Rubic.Fun.back_prime()
     vr=[:vertical_right_side,:vertical_right_side,:vertical_right_side,:vertical_right_side]
@@ -33,7 +33,7 @@ defmodule Solve.Solver do
           end
       end)
   end
-  def search_edges_middle(cube,color) do
-    v_index=[0,2,3,5,6,8,9,11]
+  def search_edges_middle(_cube,_color) do
+    _v_index=[0,2,3,5,6,8,9,11]
   end
 end

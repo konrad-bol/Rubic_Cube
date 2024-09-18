@@ -1,14 +1,14 @@
 defmodule Rubic.User do
 alias Rubic.Fun
 def mix_cube(cube) do
-  list=["R","R'","L","L'","U","U'","F","F'","D","D'","B","B'","E","E'","S","S'","M","M'"]
+  ["R","R'","L","L'","U","U'","F","F'","D","D'","B","B'","E","E'","S","S'","M","M'"]
   |>Enum.shuffle()
   |>Stream.cycle()
   |>Enum.take(100)
   |>Enum.shuffle()
   |>Enum.take(20)
   |>Enum.reduce(cube,fn move, cube ->
-    cube= move_string(cube,move)
+    move_string(cube,move)
   end)
 end
   def multiple_move(cube,moves) do
@@ -19,7 +19,7 @@ end
 
     |>IO.inspect()
     |>Enum.reduce(cube,fn move, cube ->
-      cube= move_string(cube,move)
+      move_string(cube,move)
     end)
   end
   def move_string(cube,"R"), do: Fun.right(cube)

@@ -301,4 +301,15 @@ defmodule RubicAppWeb.PageController do
     |> assign(:method, :put)
     |> render(:rubic,layout: false)
   end
+  def solve_cube(conn,_parms) do
+    cube = conn
+    |> get_session(:cube)
+    |> Solver.Cross.search_white_side(0)
+    conn
+    |> put_session(:cube,cube)
+    |> assign(:cube,cube)
+    |> assign(:form, Phoenix.HTML.FormData.to_form(%{"guess"=> 3},as: "make_move"))
+    |> assign(:method, :put)
+    |> render(:rubic,layout: false)
+  end
 end
