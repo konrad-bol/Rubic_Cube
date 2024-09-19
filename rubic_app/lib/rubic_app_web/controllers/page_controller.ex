@@ -304,7 +304,7 @@ defmodule RubicAppWeb.PageController do
   def solve_cube(conn,_parms) do
     cube = conn
     |> get_session(:cube)
-    |> Solver.Cross.search_white_side(0)
+    |> Solver.Cross.make_cross()
     conn
     |> put_session(:cube,cube)
     |> assign(:cube,cube)

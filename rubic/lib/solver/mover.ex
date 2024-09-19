@@ -1,6 +1,13 @@
 defmodule Solver.Mover do
   alias Rubic.User
 
+  def white_bottom(cube, :white, _, _), do: cube
+  def white_bottom(cube, _, :white, _), do: Rubic.Fun.x_move_prime(cube)
+  def white_bottom(cube, _, _, :white), do: Rubic.Fun.z_move_prime(cube)
+  def white_bottom(cube, _, _, :yellow), do: Rubic.Fun.z_move(cube)
+  def white_bottom(cube, :yellow, _, _), do: User.multiple_move(cube, "XX")
+  def white_bottom(cube, _, :yellow, _), do: User.multiple_move(cube, "X")
+
   def move_for_white(cube, index, color) when index > 5 do
     IO.inspect("przesuniecie kostki w prawo Y prime")
     move_for_white(Rubic.Fun.y_move_prime(cube), index - 3, color)
@@ -16,9 +23,12 @@ defmodule Solver.Mover do
     id_right = rem(index - 3, 12)
 
     id_back = rem(index - 6, 12)
-
-    # cube =
+    IO.inspect(color)
     cond do
+      Enum.at(Map.get(cube, :horizontal_middle_side), index) == color ->
+        IO.inspect("git")
+        cube
+
       Enum.at(Map.get(cube, :horizontal_middle_side), id_right) == color ->
         IO.inspect("przeniesienie na prawo")
         User.multiple_move(cube, "FD'F'D")
@@ -35,88 +45,89 @@ defmodule Solver.Mover do
 
   def move_for_h_down(cube, index, color) when index > 5 do
     IO.inspect("przesuniecie kostki w prawo Y prime")
-    move_for_white(Rubic.Fun.y_move_prime(cube), index - 3, color)
+    move_for_h_down(Rubic.Fun.y_move_prime(cube), index - 3, color)
   end
 
   def move_for_h_down(cube, index, color) when index < 3 do
     IO.inspect("przesuniecie kostki w lewo Y")
-    move_for_white(Rubic.Fun.y_move(cube), index + 3, color)
+    move_for_h_down(Rubic.Fun.y_move(cube), index + 3, color)
   end
 
   def move_for_h_down(cube, index, color) when index in 3..5 do
-    id_front = index
-    id_left = rem(index + 3, 12)
-    id_right = rem(index - 3, 12)
-
-    id_back = rem(index - 6, 12)
-
-    # cube =
+    IO.inspect(color)
     cond do
-      Enum.at(Map.get(cube, :horizontal_middle_side), id_front) == color ->
+      Enum.at(Map.get(cube, :horizontal_middle_side), 4) == color ->
         IO.inspect("obrot ")
         User.multiple_move(cube, "FD'LD")
 
-      Enum.at(Map.get(cube, :horizontal_middle_side), id_right) == color ->
+      Enum.at(Map.get(cube, :horizontal_middle_side), 1) == color ->
         IO.inspect("przeniesienie na prawo")
         User.multiple_move(cube, "F'R'DRD'")
 
-      Enum.at(Map.get(cube, :horizontal_middle_side), id_left) == color ->
+      Enum.at(Map.get(cube, :horizontal_middle_side), 7) == color ->
         IO.inspect("przeniesienie w lego")
         User.multiple_move(cube, "FLD'L'D")
 
-      Enum.at(Map.get(cube, :horizontal_middle_side), id_back) == color ->
+      Enum.at(Map.get(cube, :horizontal_middle_side), 10) == color ->
         IO.inspect("przeniesienie do tylu")
         User.multiple_move(cube, "FDLD'D'L'D")
     end
   end
 
-  def move_for_h_middle(cube, index, color, side_looking) when index > 5 and side_looking==:right do
+  def move_for_h_middle(cube, index, color, side_looking)
+      when index > 5 and side_looking == :right do
     IO.inspect("przesuniecie kostki w prawo Y prime")
     move_for_h_middle(Rubic.Fun.y_move_prime(cube), index - 3, color, side_looking)
   end
-
-  def move_for_h_middle(cube, index, color, side_looking) when index < 5 and side_looking==:right do
-    IO.inspect("przesuniecie kostki w lewo Y")
-    move_for_h_middle(Rubic.Fun.y_move(cube), index + 3, color, side_looking)
-  end
-  def move_for_h_middle(cube, index, color, side_looking) when index > 2 and side_looking==:left do
-    IO.inspect("przesuniecie kostki w prawo Y prime")
-    move_for_h_middle(Rubic.Fun.y_move_prime(cube), index - 3, color, side_looking)
-  end
-
-  def move_for_h_middle(cube, index, color, side_looking) when index < 2 and side_looking==:left do
-    IO.inspect("przesuniecie kostki w lewo Y")
-    move_for_h_middle(Rubic.Fun.y_move(cube), index + 3, color, side_looking)
-  end
-
 
   def move_for_h_middle(cube, index, color, side_looking)
-      when side_looking == :left and index == 2 do
-    cond do
-      Enum.at(Map.get(cube, :horizontal_middle_side), 4) == color ->
-        IO.inspect("obrot ")
-        User.multiple_move(cube, "DR'D'")
+      when index < 5 and side_looking == :right do
+    IO.inspect("przesuniecie kostki w lewo Y")
+    move_for_h_middle(Rubic.Fun.y_move(cube), index + 3, color, side_looking)
+  end
 
-      Enum.at(Map.get(cube, :horizontal_middle_side), 1) == color ->
-        IO.inspect("przeniesienie na prawo")
-        User.multiple_move(cube, "R'")
+  def move_for_h_middle(cube, index, color, side_looking)
+      when index > 3 and side_looking == :left do
+    IO.inspect("przesuniecie kostki w prawo Y prime")
+    move_for_h_middle(Rubic.Fun.y_move_prime(cube), index - 3, color, side_looking)
+  end
 
-      Enum.at(Map.get(cube, :horizontal_middle_side), 7) == color ->
-        IO.inspect("przeniesienie w lego")
-        User.multiple_move(cube, "RUR'ULL")
+  def move_for_h_middle(cube, index, color, side_looking)
+      when index < 3 and side_looking == :left do
+    IO.inspect("przesuniecie kostki w lewo Y")
+    move_for_h_middle(Rubic.Fun.y_move(cube), index + 3, color, side_looking)
+  end
 
-      Enum.at(Map.get(cube, :horizontal_middle_side), 10) == color ->
-        IO.inspect("przeniesienie do tylu")
-        User.multiple_move(cube, "RU'R'BB")
-    end
+  def move_for_h_middle(cube, index, color, side_looking)
+      when side_looking == :left and index == 3 do
+        IO.inspect(color)
+    cube =
+      cond do
+        Enum.at(Map.get(cube, :horizontal_middle_side), 4) == color ->
+          IO.inspect("przeniesienie na przod (patrzy w lewo) ")
+          User.multiple_move(cube, "DR'D'")
+
+        Enum.at(Map.get(cube, :horizontal_middle_side), 1) == color ->
+          IO.inspect("przeniesienie na prawo")
+          User.multiple_move(cube, "R'")
+
+        Enum.at(Map.get(cube, :horizontal_middle_side), 7) == color ->
+          IO.inspect("przeniesienie w lego")
+          User.multiple_move(cube, "RUR'ULL")
+
+        Enum.at(Map.get(cube, :horizontal_middle_side), 10) == color ->
+          IO.inspect("przeniesienie do tylu")
+          User.multiple_move(cube, "RU'R'BB")
+      end
   end
 
   def move_for_h_middle(cube, index, color, side_looking)
       when side_looking == :right and index == 5 do
+    IO.inspect(color)
     cond do
       Enum.at(Map.get(cube, :horizontal_middle_side), 4) == color ->
         IO.inspect("obrot ")
-        User.multiple_move(cube, "DLD'")
+        User.multiple_move(cube, "D'LD")
 
       Enum.at(Map.get(cube, :horizontal_middle_side), 1) == color ->
         IO.inspect("przeniesienie na prawo")
@@ -124,7 +135,7 @@ defmodule Solver.Mover do
 
       Enum.at(Map.get(cube, :horizontal_middle_side), 7) == color ->
         IO.inspect("przeniesienie w lego")
-        User.multiple_move(cube, "L")
+        Rubic.Fun.left(cube)
 
       Enum.at(Map.get(cube, :horizontal_middle_side), 10) == color ->
         IO.inspect("przeniesienie do tylu")
@@ -143,6 +154,7 @@ defmodule Solver.Mover do
   end
 
   def move_for_h_up(cube, index, color, side_looking) when side_looking == :ver and index == 4 do
+    IO.inspect(color)
     cond do
       Enum.at(Map.get(cube, :horizontal_middle_side), 4) == color ->
         IO.inspect("obrot ")
@@ -163,10 +175,11 @@ defmodule Solver.Mover do
   end
 
   def move_for_h_up(cube, index, color, side_looking) when side_looking == :up and index == 4 do
+    IO.inspect(color)
     cond do
       Enum.at(Map.get(cube, :horizontal_middle_side), 4) == color ->
         IO.inspect("obrot ")
-        User.multiple_move(cube, "FF'")
+        User.multiple_move(cube, "FF")
 
       Enum.at(Map.get(cube, :horizontal_middle_side), 1) == color ->
         IO.inspect("przeniesienie na prawo")

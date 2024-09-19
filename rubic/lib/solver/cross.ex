@@ -2,10 +2,19 @@ defmodule Solver.Cross do
   alias Solver.Mover
 
   def make_cross(cube) do
-    search_white_side(cube, number_of_good_edges(cube))
+    cube
+    |>position_white_on_bottom()
+    |> search_white_side( number_of_good_edges(cube))
     |> search_h_down_side()
     |> search_h_middle_side()
     |> search_h_up_side()
+    |>elem(0)
+    |>IO.inspect()
+  end
+  def position_white_on_bottom(cube) do
+    v_m=Map.get(cube,:vertical_middle_side)
+    f_m=Map.get(cube,:front_middle_side)
+    Mover.white_bottom(cube,Enum.at(v_m,1),Enum.at(v_m,4),Enum.at(f_m,4))
   end
 
   def number_of_good_edges(cube) do
@@ -21,7 +30,9 @@ defmodule Solver.Cross do
     end)
   end
 
-  def search_white_side(cube, x) when x in 0..3 do
+  def search_white_side(cube, x) do
+
+
     [
       {:vertical_left_side, 1, 7},
       {:vertical_middle_side, 0, 10},
@@ -62,15 +73,17 @@ defmodule Solver.Cross do
     end)
   end
 
-  def search_white_side(cube, x) when x == 4, do: {cube, 4}
 
   def search_h_down_side({cube, x}) do
+
+    IO.inspect("zaczynamy H_downs")
     [
       {:horizontal_down_side, 1, :vertical_right_side, 1},
       {:horizontal_down_side, 4, :vertical_middle_side, 2},
       {:horizontal_down_side, 7, :vertical_left_side, 1},
       {:horizontal_down_side, 10, :vertical_middle_side, 0}
     ]
+
     |> Enum.reduce({cube, x}, fn {edge, index, edge_2, index_2}, {cube, x} ->
       {cube, x} =
         if(Enum.at(Map.get(cube, edge), index) == :white) do
@@ -93,9 +106,12 @@ defmodule Solver.Cross do
           {cube, x}
         end
     end)
+
   end
 
   def search_h_middle_side({cube, x}) do
+    IO.inspect("zaczyna sie h_mid")
+
     [
       {:horizontal_middle_side, 11, :horizontal_middle_side, 0},
       {:horizontal_middle_side, 2, :horizontal_middle_side, 3},
@@ -103,41 +119,22 @@ defmodule Solver.Cross do
       {:horizontal_middle_side, 8, :horizontal_middle_side, 9}
     ]
     |> Enum.reduce({cube, x}, fn {edge, index, edge_2, index_2}, {cube, x} ->
-      {cube, x} =
         cond do
           Enum.at(Map.get(cube, edge), index) == :white ->
             IO.inspect("znaleziono bialy klocek na id:")
             IO.inspect({index, edge})
-
             IO.inspect("jest na zlym miejscu")
-            x = x + 1
-
-            cube =
-              Mover.move_for_h_middle(
-                cube,
-                index,
-                Enum.at(Map.get(cube, edge_2), index_2),
-                :right
-              )
-
-            search_h_middle_side({cube, x})
+            cube =Mover.move_for_h_middle( cube, index, Enum.at(Map.get(cube, edge_2), index_2), :right )
+            {new_c,new_x} = search_h_middle_side({cube, x})
 
           Enum.at(Map.get(cube, edge_2), index_2) == :white ->
             IO.inspect("znaleziono bialy klocek na id:")
             IO.inspect({index_2, edge_2})
 
             IO.inspect("jest na zlym miejscu")
-            x = x + 1
+            cube =Mover.move_for_h_middle( cube, index_2, Enum.at(Map.get(cube, edge), index), :left)
+            {new_c,new_x} = search_h_middle_side({cube, x})
 
-            cube =
-              Mover.move_for_h_middle(
-                cube,
-                index,
-                Enum.at(Map.get(cube, edge), index),
-                :right
-              )
-
-            search_h_middle_side({cube, x})
 
           true ->
             IO.inspect("nie znaleziono bialego")
@@ -145,7 +142,32 @@ defmodule Solver.Cross do
         end
     end)
   end
+
+  def search_h_middle_side_v2({cube, x}) do
+    [
+      {:horizontal_middle_side, 11, :horizontal_middle_side, 0},
+      {:horizontal_middle_side, 2, :horizontal_middle_side, 3},
+      {:horizontal_middle_side, 5, :horizontal_middle_side, 6},
+      {:horizontal_middle_side, 8, :horizontal_middle_side, 9}
+    ]
+    |> Enum.reduce({cube, x}, fn {edge, index, edge_2, index_2}, {cube, x} ->
+      cond do
+        Enum.at(Map.get(cube, edge), index) == :white ->
+          cube = Mover.move_for_h_middle(cube, index, Enum.at(Map.get(cube, edge_2), index_2), :right)
+          search_h_middle_side({cube, x})
+
+        Enum.at(Map.get(cube, edge_2), index_2) == :white ->
+          cube = Mover.move_for_h_middle(cube, index_2, Enum.at(Map.get(cube, edge), index), :left)
+          {new_c, new_x} = search_h_middle_side({cube, x})
+
+        true ->
+          {cube, x}
+      end
+    end)
+  end
+
   def search_h_up_side({cube, x}) do
+    IO.inspect("zaczyba h_up")
     [
       {:horizontal_up_side, 1, :vertical_right_side, 7},
       {:horizontal_up_side, 4, :vertical_middle_side, 6},
