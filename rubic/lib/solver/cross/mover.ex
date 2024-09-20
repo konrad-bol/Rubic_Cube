@@ -1,4 +1,4 @@
-defmodule Solver.Mover do
+defmodule Solver.Cross.Mover do
   alias Rubic.User
 
   def white_bottom(cube, :white, _, _), do: cube

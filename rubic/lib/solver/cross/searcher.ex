@@ -1,5 +1,5 @@
-defmodule Solver.Cross do
-  alias Solver.Mover
+defmodule Solver.Cross.Searcher do
+  alias Solver.Cross.Mover
 
   def make_cross(cube) do
     cube
