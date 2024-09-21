@@ -20,11 +20,11 @@ defmodule Solver.Middle.Mover do
       |>IO.inspect()
     case Enum.find_index(h_m, fn color -> color == color_ver end) do
       0 -> IO.inspect("na prawo powinno byc")
-      permutation_edge(User.multiple_move(cube,"UY"),edge,index)
+      permutation_edge(User.multiple_move(cube,"U'Y"),edge,index)
       1 -> IO.inspect("jest poprawnie")
       permutation_edge(cube,edge,index)
       2->  IO.inspect("na lewo")
-      permutation_edge(User.multiple_move(cube,"U'Y'"),edge,index)
+      permutation_edge(User.multiple_move(cube,"UY'"),edge,index)
       3-> IO.inspect("do tylu")
       permutation_edge(User.multiple_move(cube,"UUYY"),edge,index)
     end
@@ -38,7 +38,7 @@ defmodule Solver.Middle.Mover do
     IO.inspect("przeniesienie w lewo Y")
     move_edge_mid(Rubic.Fun.y_move(cube), [color_1, color_2], index + 3)
   end
-  def move_edge_mid(cube, edge = [color_ver, color_up], index) when index == 3 do
+  def move_edge_mid(cube, edge = [color_up, color_ver], index) when index == 3 do
     cube=User.multiple_move(cube,"URU'R'FR'F'RUU")
     h_m =
       Map.get(cube, :horizontal_middle_side)
@@ -49,13 +49,13 @@ defmodule Solver.Middle.Mover do
       IO.inspect(edge)
     case Enum.find_index(h_m, fn color -> color == color_ver end) do
       0 -> IO.inspect("na prawo powinno byc")
-      permutation_edge(User.multiple_move(cube,"UY"),edge,index)
+      permutation_edge(User.multiple_move(cube,"U'Y"),[color_ver, color_up],index)
       1 -> IO.inspect("jest poprawnie")
-      permutation_edge(cube,edge,index)
+      permutation_edge(cube,[color_ver, color_up],index)
       2->  IO.inspect("na lewo")
-      permutation_edge(User.multiple_move(cube,"U'Y'"),edge,index)
+      permutation_edge(User.multiple_move(cube,"UY'"),[color_ver, color_up],index)
       3-> IO.inspect("do tylu")
-      permutation_edge(User.multiple_move(cube,"UUYY"),edge,index)
+      permutation_edge(User.multiple_move(cube,"UUYY"),[color_ver, color_up],index)
     end
   end
 

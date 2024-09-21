@@ -307,6 +307,8 @@ defmodule RubicAppWeb.PageController do
     |> Solver.Cross.Searcher.make_cross()
     |> Solver.Corner.Searcher.make_corner()
     |> Solver.Middle.Searcher.make_2l()
+    |> Solver.UperCross.Cross.make_upercross()
+    |>Solver.UperCorner.Corner.make_corner()
     conn
     |> put_session(:cube,cube)
     |> assign(:cube,cube)
