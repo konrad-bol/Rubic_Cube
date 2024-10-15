@@ -1,14 +1,12 @@
 defmodule Solver.Corner.Searcher do
   alias Solver.Corner.Mover
   # search for white corners on white side in any permutation
-  def make_corner(cube) do
-    cube
+  def make_corner({cube,old_m}) do
+    {cube,old_m}
     |> search_white_corner()
-    |>search_white_corner_up()
+    |> search_white_corner_up()
   end
-  def search_white_corner(cube) do
-
-
+  def search_white_corner({cube,moves}) do
     [
       {:vertical_right_side, 0, 11, 0},
       {:vertical_right_side, 2, 2, 3},
@@ -17,8 +15,7 @@ defmodule Solver.Corner.Searcher do
     ]
 
     |> Enum.zip(1..12//3)
-    |> Enum.reduce(cube,fn {{side,i,j,k}, index},cube ->
-      IO.inspect("tu dziala")
+    |> Enum.reduce({cube,moves},fn {{side,i,j,k}, index},{cube,moves} ->
 
       h_d = Map.get(cube, :horizontal_down_side)
       h_m = Map.get(cube, :horizontal_middle_side)
@@ -28,20 +25,19 @@ defmodule Solver.Corner.Searcher do
       corner_center_1=[:white, Enum.at(h_m, rem(index+9,12)), Enum.at(h_m, index)]
       cond do
         corner_center_1==list-> IO.inspect("na dobrej pozycji bialy")
-        IO.inspect(index)
-        cube
+        {cube,moves}
+
         Enum.any?(list, &(&1 == :white)) -> IO.inspect("bialy naroznik na zlym miejscu")
-        IO.inspect(index)
-        Mover.move_corner(cube,{list,index})
+        Mover.move_corner(cube,{list,index},moves)
         |>search_white_corner()
+
         true->
-          IO.inspect("brak bialego naroznika")
-          cube
+          {cube,moves}
       end
     end)
   end
 
-  def search_white_corner_up(cube) do
+  def search_white_corner_up({cube,moves}) do
 
 
     [
@@ -52,7 +48,7 @@ defmodule Solver.Corner.Searcher do
     ]
 
     |> Enum.zip(1..12//3)
-    |> Enum.reduce(cube,fn {{side,i,j,k}, index},cube ->
+    |> Enum.reduce({cube,moves},fn {{side,i,j,k}, index},{cube,moves} ->
 
 
       h_u = Map.get(cube, :horizontal_up_side)
@@ -66,11 +62,11 @@ defmodule Solver.Corner.Searcher do
 
         Enum.any?(list, &(&1 == :white)) -> IO.inspect("bialy naroznik na zlym miejscu")
         IO.inspect(index)
-        Mover.move_corner_up(cube,{list,index})
+        Mover.move_corner_up(cube,{list,index},moves)
         |>search_white_corner_up()
+
         true->
-          IO.inspect("brak bialego naroznika")
-          cube
+          {cube,moves}
       end
     end)
   end

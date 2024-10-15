@@ -304,11 +304,12 @@ defmodule RubicAppWeb.PageController do
   def solve_cube(conn,_parms) do
     cube = conn
     |> get_session(:cube)
-    |> Solver.Cross.Searcher.make_cross()
-    |> Solver.Corner.Searcher.make_corner()
-    |> Solver.Middle.Searcher.make_2l()
-    |> Solver.UperCross.Cross.make_upercross()
-    |>Solver.UperCorner.Corner.make_corner()
+    |> Solver.Solver.solve_cube()
+    #|> Solver.Cross.Searcher.make_cross()
+    #|> Solver.Corner.Searcher.make_corner()
+    #|> Solver.Middle.Searcher.make_2l()
+    #|> Solver.UperCross.Cross.make_upercross()
+    #|> Solver.UperCorner.Corner.make_corner()
     conn
     |> put_session(:cube,cube)
     |> assign(:cube,cube)

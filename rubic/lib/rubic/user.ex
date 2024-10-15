@@ -14,6 +14,7 @@ end
   def multiple_move(cube,moves) do
     Regex.replace(~r/(.`|.'|.)/,moves,"\\1,")
     |>String.replace("`","'")
+    |>String.replace(" ,","")
     |>String.trim_trailing(",")
     |>String.split(",")
 
@@ -21,6 +22,17 @@ end
     |>Enum.reduce(cube,fn move, cube ->
       move_string(cube,move)
     end)
+  end
+  def write_and_make_move(cube,old_moves,moves) do
+    IO.inspect("to wysweitla:")
+    IO.inspect(moves)
+    {multiple_move(cube,moves),old_moves<>" "<>moves}
+  end
+
+  def write_and_make_move({cube,old_moves},moves) do
+    IO.inspect("to wysweitla:")
+    IO.inspect(moves)
+    {multiple_move(cube,moves),old_moves<>" "<>moves}
   end
   def move_string(cube,"R"), do: Fun.right(cube)
   def move_string(cube,"R'"), do: Fun.right_prime(cube)

@@ -1,13 +1,13 @@
 defmodule Solver.UperCorner.Corner do
   alias Solver.UperCorner.Mover
-
-  def make_corner(cube) do
-    cube
+  alias Rubic.User
+  def make_corner({cube,moves}) do
+    {cube,moves}={cube,moves}
     |> rotate_corner()
     |> orient_corner()
   end
 
-  def rotate_corner(cube) do
+  def rotate_corner({cube,moves}) do
     [
       {:vertical_right_side, 8, 11, 0},
       {:vertical_right_side, 6, 2, 3},
@@ -31,28 +31,28 @@ defmodule Solver.UperCorner.Corner do
       end
     end)
     |> case do
-      {1, index_pos} -> Mover.rotate_corner(cube, index_pos)
-      {4, _} -> cube
-      {0, _} -> Mover.rotate_corner(cube, 3)
+      {1, index_pos} -> Mover.rotate_corner(cube, index_pos,moves)
+      {4, _} -> {cube,moves}
+      {0, _} -> Mover.rotate_corner(cube, 3,moves)
     end
   end
 
-  def orient_corner(cube) do
+  def orient_corner({cube,moves}) do
     [
       {:vertical_right_side, 6, 2, 3},
       {:vertical_right_side, 6, 2, 3},
       {:vertical_right_side, 6, 2, 3},
       {:vertical_right_side, 6, 2, 3}
     ]
-    |> Enum.reduce(cube, fn {side, i, j, k}, cube ->
+    |> Enum.reduce({cube,moves}, fn {side, i, j, k}, {cube,moves} ->
       h_u = Map.get(cube, :horizontal_up_side)
       h_m = Map.get(cube, :horizontal_middle_side)
 
       [Enum.at(Map.get(cube, side), i), Enum.at(h_u, j), Enum.at(h_u, k)]
       |> case do
-        [:yellow, _, _] -> Mover.algorithm(cube, 0)
-        [_, :yellow, _] -> Mover.algorithm(cube, 2)
-        [_, _, :yellow] -> Mover.algorithm(cube, 4)
+        [:yellow, _, _] -> Mover.algorithm({cube,moves}, 0)
+        [_, :yellow, _] -> Mover.algorithm({cube,moves}, 2)
+        [_, _, :yellow] -> Mover.algorithm({cube,moves}, 4)
       end
     end)
   end

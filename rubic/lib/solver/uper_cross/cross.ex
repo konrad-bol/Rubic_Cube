@@ -1,13 +1,14 @@
 defmodule Solver.UperCross.Cross do
   alias Solver.UperCross.Mover
-
-  def make_upercross(cube) do
-    cube
+  alias Rubic.User
+  def make_upercross({cube,moves}) do
+    {cube,moves}=
+      {cube,moves}
     |> check_cross()
     |> permutation_cross()
   end
 
-  def permutation_cross(cube) do
+  def permutation_cross({cube,moves}) do
     IO.inspect("permutacja krzyza")
     h_center_up =
       Map.get(cube, :horizontal_up_side)
@@ -23,20 +24,16 @@ defmodule Solver.UperCross.Cross do
 
     case eq_list(h_center_mid, h_center_up, 0) do
       2 ->
-        cube
-        Mover.perm_line_or_L(cube, line_perm?(h_center_up, h_center_mid))
+
+        Mover.perm_line_or_L(cube, line_perm?(h_center_up, h_center_mid),moves)
 
       4 ->
         IO.inspect("dobry krzyz")
-        cube
+        {cube,moves}
 
       _ ->
-        IO.inspect("tu zapetla sie")
-        IO.inspect(h_center_mid)
-        IO.inspect(h_center_up)
-        cube
-        |> Rubic.User.multiple_move("U")
-        |> permutation_cross()
+        {cube,moves}=User.write_and_make_move(cube,moves,"U")
+        permutation_cross({cube,moves})
     end
   end
 
@@ -52,36 +49,32 @@ defmodule Solver.UperCross.Cross do
     x
   end
 
-  def check_cross(cube) do
+  def check_cross({cube,moves}) do
     h_center =
       Map.get(cube, :horizontal_up_side)
       |> Enum.with_index()
       |> Enum.filter(fn {_, index} -> rem(index, 3) == 1 end)
       |> Enum.map(fn {color, _} -> color end)
-      |> IO.inspect()
-
-    IO.inspect(Map.get(Enum.frequencies(h_center), :yellow))
 
     case Map.get(Enum.frequencies(h_center), :yellow) do
       nil ->
         IO.inspect("to juz jest krzyz")
-        cube
+        {cube,moves}
 
       4 ->
         IO.inspect("to kropka")
 
         cube
-        |> Mover.dot()
+        |> Mover.dot(moves)
 
       2 ->
         IO.inspect("linia lub L-ka")
-
         cube
-        |> Mover.line_or_L(line?(h_center))
+        |> Mover.line_or_L(line?(h_center),moves)
 
       0 ->
         IO.inspect("to juz jest krzyz")
-        cube
+        {cube,moves}
     end
   end
 
