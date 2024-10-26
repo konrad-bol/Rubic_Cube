@@ -86,7 +86,6 @@ defmodule RubicAppWeb do
       # Core UI components and translation
       import RubicAppWeb.CoreComponents
       import RubicAppWeb.Gettext
-
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS
 

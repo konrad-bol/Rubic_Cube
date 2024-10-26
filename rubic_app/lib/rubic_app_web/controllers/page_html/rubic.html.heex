@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,35 +11,80 @@
     <title>Okrąg z punktami</title>
     <style>
         /* Styl dla kontenera */
-    
+        .center-container {
+            display: flex;
+            justify-content: center;
+            /* Centruje zawartość poziomo */
+            align-items: flex-start;
+            /* Ustawia elementy na jednej linii */
+        }
 
-        .com{
+        .hints {
             position: absolute;
-width: 50px;
-height: 10px;
-top: 120px; /* Nowa wartość */
-left: 100px; /* Nowa wartość */
-z-index: 10;
-background-color: var(--background);
-color: var(--purple-3);
+            top: 50px;
+            /* Opcjonalny margines od góry */
+            right: 10px;
+            margin: 15px;
+            /* Odstęp od prawej krawędzi */
+            width: 350px;
+            height: 150px;
+            border: 3px solid var(--purple-1);
+            border-radius: 20px;
+            /* Zaokrąglone krawędzie */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* Efekt cienia */
+            padding: 20px;
+        }
+
+        .list-window {
+            position: relative;
+            width: 300px;
+            height: 50px;
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--purple-3);
+            border-radius: 20px;
+            /* Zaokrąglone krawędzie */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* Efekt cienia */
+            padding: 20px;
+        }
+
+        .com {
+            position: absolute;
+            width: 50px;
+            height: 10px;
+            top: 120px;
+            /* Nowa wartość */
+            left: 100px;
+            /* Nowa wartość */
+            z-index: 10;
+            background-color: var(--background);
+            color: var(--purple-3);
             font-size: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
+
         :root {
-            --purple-1: #3d0066; /* Kolor dodatkowy */
+            --purple-1: #3d0066;
+            /* Kolor dodatkowy */
             --purple-2: #5c0099;
             --purple-3: #c86bfa;
             --accent-1: #fdc500;
             --accent-2: #ffd500;
-            --accent-3: #ffee32; 
+            --accent-3: #ffee32;
             --background: #03071e;
-            --text-color: #F2F2F2; 
+            --text-color: #F2F2F2;
             --dark-gray: #1c1c1c;
-            --medium-gray: #2c2c2c; 
-            --light-gray: #3c3c3c; 
-            }
+            --medium-gray: #2c2c2c;
+            --light-gray: #3c3c3c;
+        }
+
         body {
             display: flex;
             justify-content: center;
@@ -51,209 +97,356 @@ color: var(--purple-3);
         }
     </style>
 </head>
-<body >
-<div class="menu-container w-full">
-<div class="grid grid-cols-8 gap-4">
-    <div><.button style="width: 50px;">cube</.button></div>
-    <div class="col-start-6">
-    <.button>basic moves</.button>
+
+<body>
+    <div class="menu-container w-full">
+        <div class="grid grid-cols-8 gap-4">
+            <div>
+                <.button style="width: 50px;">cube</.button>
+            </div>
+            <div class="col-start-6">
+                <.button>basic moves</.button>
+            </div>
+
+            <div class="col-start-7">
+                <.button>tutorial</.button>
+            </div>
+
+            <div class="col-start-8">
+                <.button>about</.button>
+            </div>
+
+        </div>
     </div>
+    <div class="center-container">
+        <div class="rubic-container">
+            <div class="circle-container">
 
-  <div class="col-start-7"><.button>tutorial</.button></div>
+                <div class="row">
+                    <div class="circle large-1">
+                        <div class="circle medium-1">
+                            <div class="circle small-1">
 
-  <div class="col-start-8"><.button>about</.button></div>
+                                <div class="com" style=" transform: rotate(200deg) translate(178px) rotate(90deg);">---
+                                    B move</div>
+                                <div class="com" style=" transform: rotate(220deg) translate(153px) rotate(90deg);">S
+                                    move ---</div>
+                                <div class="com" style=" transform: rotate(240deg) translate(128px) rotate(90deg);">F
+                                    move ---</div>
+                                <%= for {style, index} <-
+                                    Enum.with_index(Rubic.Construct.combine_position(@cube,:front_face_side,125,-1), 1)
+                                    do %>
+                                    <div id={Integer.to_string(index)<>"-ver-right"} class="dot-1" style={style}></div>
+                                    <% end %>
+                                        <%= for {style, index} <-
+                                            Enum.with_index(Rubic.Construct.combine_position(@cube,:front_middle_side,150,-1),
+                                            1) do %>
+                                            <div id={Integer.to_string(index)<>"-ver-midd"} class="dot-1" style={style}>
+                                            </div>
+                                            <% end %>
+                                                <%= for {style, index} <-
+                                                    Enum.with_index(Rubic.Construct.combine_position(@cube,:front_back_side,175,-1),
+                                                    1) do %>
+                                                    <div id={Integer.to_string(index)<>"-ver-left"} class="dot-1"
+                                                        style={style}></div>
+                                                    <% end %>
 
-</div>
-</div>
-<div class="rubic-container">
-<div class="circle-container">
+                            </div>
+                        </div>
+                    </div>
 
-<div class="row">
-    <div class="circle large-1">
-    <div class="circle medium-1">
-    <div class="circle small-1">
+                    <div class="circle large-2">
+                        <div class="circle medium-1">
+                            <div class="circle small-1">
+                                <div class="com" style=" transform: rotate(-80deg) translate(177px) rotate(90deg);">---
+                                    L move</div>
+                                <div class="com" style=" transform: rotate(-60deg) translate(152px) rotate(90deg);">---
+                                    M move</div>
+                                <div class="com" style=" transform: rotate(-40deg) translate(127px) rotate(90deg);">R
+                                    move ---</div>
+                                <%= for {style, index} <-
+                                    Enum.with_index(Rubic.Construct.combine_position_right(@cube,:vertical_right_side,125,1),
+                                    1) do %>
+                                    <div id={Integer.to_string(index)<>"-ver-right"} class="dot-1" style={style}></div>
+                                    <% end %>
+                                        <%= for {style, index} <-
+                                            Enum.with_index(Rubic.Construct.combine_position_right(@cube,:vertical_middle_side,150,1),
+                                            1) do %>
+                                            <div id={Integer.to_string(index)<>"-ver-midd"} class="dot-1" style={style}>
+                                            </div>
+                                            <% end %>
+                                                <%= for {style, index} <-
+                                                    Enum.with_index(Rubic.Construct.combine_position_right(@cube,:vertical_left_side,175,1),
+                                                    1) do %>
+                                                    <div id={Integer.to_string(index)<>"-ver-left"} class="dot-1"
+                                                        style={style}></div>
+                                                    <% end %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="circle large-3">
+                    <div class="circle medium-1">
+                        <div class="circle small-1">
+                            <div class="com" style=" transform: rotate(100deg) translate(173px) rotate(90deg);">--- U
+                                move</div>
+                            <div class="com" style=" transform: rotate(120deg) translate(152px) rotate(90deg);">E move
+                                ---</div>
+                            <div class="com" style=" transform: rotate(140deg) translate(123px) rotate(90deg);">D move
+                                ---</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-window">
+                <div class="row">
+                    <.form for={@form} action="/rubic/r" method="post">
+                        <input type="hidden" name="_method" value="put">
+                        <button type="submit">R</button>
+                    </.form>
+                    <.form for={@form} action="/rubic/l" method="put">
+                        <button type="submit">L</button>
+                    </.form>
+                    <.form for={@form} action="/rubic/u" method="put">
+                        <button type="submit">U</button>
+                    </.form>
+                    <.form for={@form} action="/rubic/d" method="put">
+                        <button type="submit">D</button>
+                    </.form>
+                    <.form for={@form} action="/rubic/f" method="put">
+                        <button type="submit">F</button>
+                    </.form>
+                    <.form for={@form} action="/rubic/b" method="put">
+                        <button type="submit">B</button>
+                    </.form>
+                    <.form for={@form} action="/rubic/e" method="put">
+                        <button type="submit">E</button>
+                    </.form>
+                    <.form for={@form} action="/rubic/m" method="put">
+                        <button type="submit">M</button>
+                    </.form>
+                    <.form for={@form} action="/rubic/s" method="put">
+                        <button type="submit">S</button>
+                    </.form>
+                    <.form for={@form} action="/rubic" method="get">
+                        <button style="width:100px" type="submit">restart</button>
+                    </.form>
+                </div>
+                <div class="row">
+                    <.form for={@form} action="/rubic/rp" method="put">
+                        <button type="submit">R'</button>
+                    </.form>
+                    <.form for={@form} action="/rubic/lp" method="put">
+                        <button type="submit">L`</button>
+                    </.form>
+                    <.form for={@form} action="/rubic/up" method="put">
+                        <button type="submit">U`</button>
+                    </.form>
+                    <.form for={@form} action="/rubic/dp" method="put">
+                        <button type="submit">D`</button>
+                    </.form>
+                    <.form for={@form} action="/rubic/fp" method="put">
+                        <button type="submit">F`</button>
+                    </.form>
+                    <.form for={@form} action="/rubic/bp" method="put">
+                        <button type="submit">B`</button>
+                    </.form>
+                    <.form for={@form} action="/rubic/ep" method="put">
+                        <button type="submit">E`</button>
+                    </.form>
+                    <.form for={@form} action="/rubic/mp" method="put">
+                        <button type="submit">M`</button>
+                    </.form>
+                    <.form for={@form} action="/rubic/sp" method="put">
+                        <button type="submit">S`</button>
+                    </.form>
+                    <.form for={@form} action="/rubic/solver" method="put">
+                        <button style="width:100px" type="submit">help</button>
+                    </.form>
+                </div>
+                <div class="row">
+                    <.form for={@form} action="/rubic/x" method="put">
+                        <button type="submit">X</button>
+                    </.form>
+                    <.form for={@form} action="/rubic/y" method="put">
+                        <button type="submit">Y</button>
+                    </.form>
+                    <.form for={@form} action="/rubic/z" method="put">
+                        <button type="submit">Z</button>
+                    </.form>
 
-        <div class="com" style=" transform: rotate(200deg) translate(178px) rotate(90deg);">--- B move</div>
-        <div class="com" style=" transform: rotate(220deg) translate(153px) rotate(90deg);">S move ---</div>
-        <div class="com" style=" transform: rotate(240deg) translate(128px) rotate(90deg);">F move ---</div>
-      <%= for {style, index} <- Enum.with_index(Rubic.Construct.combine_position(@cube,:front_face_side,125,-1), 1) do %>
-    <div id={Integer.to_string(index)<>"-ver-right"} class="dot-1" style={style}></div>
+                    <.form for={@form} action="/rubic/xp" method="put">
+                        <button type="submit">X`</button>
+                    </.form>
+                    <.form for={@form} action="/rubic/yp" method="put">
+                        <button type="submit">Y`</button>
+                    </.form>
+                    <.form for={@form} action="/rubic/zp" method="put">
+                        <button type="submit">Z`</button>
+                    </.form>
+                    <.form for={@form} action="/rubic/move" method="post">
+                        <input class="custom-input" name="move_value" placeholder="Enter value" type="text">
+                        <button type="submit">√</button>
+                    </.form>
+                    <.form for={@form} action="/rubic/mix" method="post">
+                        <button style="width:100px" type="submit">mix</button>
+                    </.form>
+                </div>
+
+            </div>
+        </div>
+        <%= if @list_of_hints != [] && @list_of_hints !=nil  do %>
+        <div class="hints">
+            <div class="list-window"> <%= Enum.at(@list_of_hints,@current_hint_index,"end") %></div>
+                <div class="grid drid-cols-4 gap-2" style="margin-top: 5px ;">
+                    <div class="col-start-1">
+                        <.link href={~p"/rubic/prev_hint"}>
+                            <.button>prev</.button>
+                          </.link>
+                    </div>
+                    <div class="col-start-4">
+                        <.link href={~p"/rubic/next_hint"}>
+                        <.button>next</.button>
+                        </.link>
+                    </div>
+                
+            </div>
+        </div>
         <% end %>
-        <%= for {style, index} <- Enum.with_index(Rubic.Construct.combine_position(@cube,:front_middle_side,150,-1), 1) do %>
-    <div id={Integer.to_string(index)<>"-ver-midd"} class="dot-1" style={style}></div>
-        <% end %>
-        <%= for {style, index} <- Enum.with_index(Rubic.Construct.combine_position(@cube,:front_back_side,175,-1), 1) do %>
-    <div id={Integer.to_string(index)<>"-ver-left"} class="dot-1" style={style}></div>
-        <% end %>
-
-    </div></div></div>
-
-    <div class="circle large-2">
-    <div class="circle medium-1">
-    <div class="circle small-1">
-        <div class="com" style=" transform: rotate(-80deg) translate(177px) rotate(90deg);">--- L move</div>
-        <div class="com" style=" transform: rotate(-60deg) translate(152px) rotate(90deg);">--- M move</div>
-        <div class="com" style=" transform: rotate(-40deg) translate(127px) rotate(90deg);">R move ---</div>
-        <%= for {style, index} <- Enum.with_index(Rubic.Construct.combine_position_right(@cube,:vertical_right_side,125,1), 1) do %>
-        <div id={Integer.to_string(index)<>"-ver-right"} class="dot-1" style={style}></div>
-        <% end %>
-            <%= for {style, index} <- Enum.with_index(Rubic.Construct.combine_position_right(@cube,:vertical_middle_side,150,1), 1) do %>
-        <div id={Integer.to_string(index)<>"-ver-midd"} class="dot-1" style={style}></div>
-            <% end %>
-            <%= for {style, index} <- Enum.with_index(Rubic.Construct.combine_position_right(@cube,:vertical_left_side,175,1), 1) do %>
-        <div id={Integer.to_string(index)<>"-ver-left"} class="dot-1" style={style}></div>
-            <% end %>
-    </div></div></div>
-</div>
-    <div class="circle large-3">
-    <div class="circle medium-1">
-    <div class="circle small-1">
-        <div class="com" style=" transform: rotate(100deg) translate(173px) rotate(90deg);">--- U move</div>
-        <div class="com" style=" transform: rotate(120deg) translate(152px) rotate(90deg);">E move ---</div>
-        <div class="com" style=" transform: rotate(140deg) translate(123px) rotate(90deg);">D move ---</div>
-    </div></div></div>
-</div>
-<div class="button-window">
-<div class="row">
-<.form for={@form} action="/rubic/r" method="post">
-    <input type="hidden" name="_method" value="put">
-    <button type="submit">R</button>
-</.form>
-    <.form for={@form} action="/rubic/l" method= "put" >
-        <button type="submit">L</button>
-    </.form>
-    <.form for={@form} action="/rubic/u" method= "put" >
-        <button type="submit">U</button>
-    </.form>
-    <.form for={@form} action="/rubic/d" method= "put" >
-        <button type="submit">D</button>
-    </.form>
-    <.form for={@form} action="/rubic/f" method= "put" >
-        <button type="submit">F</button>
-    </.form>
-    <.form for={@form} action="/rubic/b" method= "put" >
-        <button type="submit">B</button>
-    </.form>
-    <.form for={@form} action="/rubic/e" method= "put" >
-        <button type="submit">E</button>
-    </.form>
-    <.form for={@form} action="/rubic/m" method= "put" >
-        <button type="submit">M</button>
-    </.form>
-    <.form for={@form} action="/rubic/s" method= "put" >
-        <button type="submit">S</button>
-    </.form>
-    <.form for={@form} action="/rubic" method= "get" >
-        <button style="width:100px" type="submit">restart</button>
-    </.form>
-    </div>
-    <div class="row">
-    <.form for={@form} action="/rubic/rp" method= "put" >
-        <button type="submit">R'</button>
-    </.form>
-    <.form for={@form} action="/rubic/lp" method= "put" >
-        <button type="submit">L`</button>
-    </.form>
-    <.form for={@form} action="/rubic/up" method= "put" >
-        <button type="submit">U`</button>
-    </.form>
-    <.form for={@form} action="/rubic/dp" method= "put" >
-        <button type="submit">D`</button>
-    </.form>
-    <.form for={@form} action="/rubic/fp" method= "put" >
-        <button type="submit">F`</button>
-    </.form>
-    <.form for={@form} action="/rubic/bp" method= "put" >
-        <button type="submit">B`</button>
-    </.form>
-    <.form for={@form} action="/rubic/ep" method= "put" >
-        <button type="submit">E`</button>
-    </.form>
-    <.form for={@form} action="/rubic/mp" method= "put" >
-        <button type="submit">M`</button>
-    </.form>
-    <.form for={@form} action="/rubic/sp" method= "put" >
-        <button type="submit">S`</button>
-    </.form>
-    <.form for={@form} action="/rubic/solver" method= "put" >
-        <button style="width:100px" type="submit">help</button>
-    </.form>
-    </div>
-    <div class="row">
-    <.form for={@form} action="/rubic/x" method= "put" >
-        <button type="submit">X</button>
-    </.form>
-        <.form for={@form} action="/rubic/y" method= "put" >
-        <button type="submit">Y</button>
-    </.form>
-        <.form for={@form} action="/rubic/z" method= "put" >
-        <button type="submit">Z</button>
-    </.form>
-    
-    <.form for={@form} action="/rubic/xp" method= "put" >
-        <button type="submit">X`</button>
-    </.form>
-        <.form for={@form} action="/rubic/yp" method= "put" >
-        <button type="submit">Y`</button>
-    </.form>
-        <.form for={@form} action="/rubic/zp" method= "put" >
-        <button type="submit">Z`</button>
-    </.form>
-    <.form for={@form} action="/rubic/move" method="post">
-        <input class="custom-input" name="move_value" placeholder="Enter value" type="text">
-        <button type="submit">√</button>
-    </.form>
-    <.form for={@form} action="/rubic/mix" method= "post" >
-        <button style="width:100px" type="submit">mix</button>
-    </.form>
     </div>
 
-</div>
-</div>
+    <div class="curved-section">
+        <svg id="wave" style="top: -400px;transform:rotate(0deg); transition: 0.3s; height: 400px; width: 100%;"
+            viewBox="0 0 1440 300" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0">
+                    <stop stop-color="rgba(61, 0, 102, 1)" offset="0%"></stop>
+                    <stop stop-color="rgba(61, 0, 102, 1)" offset="100%"></stop>
+                </linearGradient>
+            </defs>
+            <path style="transform:translate(0, 0px); opacity:1" fill="url(#sw-gradient-0)"
+                d="M0,210L48,175C96,140,192,70,288,75C384,80,480,160,576,165C672,170,768,100,864,105C960,110,1056,190,1152,195C1248,200,1344,130,1440,120C1536,110,1632,160,1728,155C1824,150,1920,90,2016,90C2112,90,2208,150,2304,145C2400,140,2496,70,2592,55C2688,40,2784,80,2880,90C2976,100,3072,80,3168,105C3264,130,3360,200,3456,215C3552,230,3648,190,3744,160C3840,130,3936,110,4032,130C4128,150,4224,210,4320,215C4416,220,4512,170,4608,135C4704,100,4800,80,4896,95C4992,110,5088,160,5184,150C5280,140,5376,70,5472,60C5568,50,5664,100,5760,145C5856,190,5952,230,6048,230C6144,230,6240,190,6336,155C6432,120,6528,90,6624,90C6720,90,6816,120,6864,135L6912,150L6912,300L6864,300C6816,300,6720,300,6624,300C6528,300,6432,300,6336,300C6240,300,6144,300,6048,300C5952,300,5856,300,5760,300C5664,300,5568,300,5472,300C5376,300,5280,300,5184,300C5088,300,4992,300,4896,300C4800,300,4704,300,4608,300C4512,300,4416,300,4320,300C4224,300,4128,300,4032,300C3936,300,3840,300,3744,300C3648,300,3552,300,3456,300C3360,300,3264,300,3168,300C3072,300,2976,300,2880,300C2784,300,2688,300,2592,300C2496,300,2400,300,2304,300C2208,300,2112,300,2016,300C1920,300,1824,300,1728,300C1632,300,1536,300,1440,300C1344,300,1248,300,1152,300C1056,300,960,300,864,300C768,300,672,300,576,300C480,300,384,300,288,300C192,300,96,300,48,300L0,300Z">
+            </path>
+            <defs>
+                <linearGradient id="sw-gradient-1" x1="0" x2="0" y1="1" y2="0">
+                    <stop stop-color="rgba(92, 0, 153, 1)" offset="0%"></stop>
+                    <stop stop-color="rgba(92, 0, 153, 1)" offset="100%"></stop>
+                </linearGradient>
+            </defs>
+            <path style="transform:translate(0, 50px); opacity:0.9" fill="url(#sw-gradient-1)"
+                d="M0,270L48,250C96,230,192,190,288,170C384,150,480,150,576,135C672,120,768,90,864,75C960,60,1056,60,1152,90C1248,120,1344,180,1440,170C1536,160,1632,80,1728,50C1824,20,1920,40,2016,85C2112,130,2208,200,2304,195C2400,190,2496,110,2592,95C2688,80,2784,130,2880,165C2976,200,3072,220,3168,205C3264,190,3360,140,3456,110C3552,80,3648,70,3744,70C3840,70,3936,80,4032,105C4128,130,4224,170,4320,195C4416,220,4512,230,4608,240C4704,250,4800,260,4896,235C4992,210,5088,150,5184,150C5280,150,5376,210,5472,205C5568,200,5664,130,5760,90C5856,50,5952,40,6048,65C6144,90,6240,150,6336,145C6432,140,6528,70,6624,45C6720,20,6816,40,6864,50L6912,60L6912,300L6864,300C6816,300,6720,300,6624,300C6528,300,6432,300,6336,300C6240,300,6144,300,6048,300C5952,300,5856,300,5760,300C5664,300,5568,300,5472,300C5376,300,5280,300,5184,300C5088,300,4992,300,4896,300C4800,300,4704,300,4608,300C4512,300,4416,300,4320,300C4224,300,4128,300,4032,300C3936,300,3840,300,3744,300C3648,300,3552,300,3456,300C3360,300,3264,300,3168,300C3072,300,2976,300,2880,300C2784,300,2688,300,2592,300C2496,300,2400,300,2304,300C2208,300,2112,300,2016,300C1920,300,1824,300,1728,300C1632,300,1536,300,1440,300C1344,300,1248,300,1152,300C1056,300,960,300,864,300C768,300,672,300,576,300C480,300,384,300,288,300C192,300,96,300,48,300L0,300Z">
+            </path>
+            <defs>
+                <linearGradient id="sw-gradient-2" x1="0" x2="0" y1="1" y2="0">
+                    <stop stop-color="rgba(200, 107, 250, 1)" offset="0%"></stop>
+                    <stop stop-color="rgba(200, 107, 250, 1)" offset="100%"></stop>
+                </linearGradient>
+            </defs>
+            <path style="transform:translate(0, 100px); opacity:1" fill="url(#sw-gradient-2)"
+                d="M0,150L48,160C96,170,192,190,288,170C384,150,480,90,576,60C672,30,768,30,864,60C960,90,1056,150,1152,145C1248,140,1344,70,1440,75C1536,80,1632,160,1728,195C1824,230,1920,220,2016,195C2112,170,2208,130,2304,140C2400,150,2496,210,2592,210C2688,210,2784,150,2880,145C2976,140,3072,190,3168,175C3264,160,3360,80,3456,70C3552,60,3648,120,3744,135C3840,150,3936,120,4032,90C4128,60,4224,30,4320,25C4416,20,4512,40,4608,65C4704,90,4800,120,4896,115C4992,110,5088,70,5184,65C5280,60,5376,90,5472,100C5568,110,5664,100,5760,120C5856,140,5952,190,6048,210C6144,230,6240,220,6336,205C6432,190,6528,170,6624,175C6720,180,6816,210,6864,225L6912,240L6912,300L6864,300C6816,300,6720,300,6624,300C6528,300,6432,300,6336,300C6240,300,6144,300,6048,300C5952,300,5856,300,5760,300C5664,300,5568,300,5472,300C5376,300,5280,300,5184,300C5088,300,4992,300,4896,300C4800,300,4704,300,4608,300C4512,300,4416,300,4320,300C4224,300,4128,300,4032,300C3936,300,3840,300,3744,300C3648,300,3552,300,3456,300C3360,300,3264,300,3168,300C3072,300,2976,300,2880,300C2784,300,2688,300,2592,300C2496,300,2400,300,2304,300C2208,300,2112,300,2016,300C1920,300,1824,300,1728,300C1632,300,1536,300,1440,300C1344,300,1248,300,1152,300C1056,300,960,300,864,300C768,300,672,300,576,300C480,300,384,300,288,300C192,300,96,300,48,300L0,300Z">
+            </path>
+        </svg>
 
-<div class="curved-section">
-    <svg id="wave" style="top: -400px;transform:rotate(0deg); transition: 0.3s; height: 400px; width: 100%;" viewBox="0 0 1440 300" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(61, 0, 102, 1)" offset="0%"></stop><stop stop-color="rgba(61, 0, 102, 1)" offset="100%"></stop></linearGradient></defs><path style="transform:translate(0, 0px); opacity:1" fill="url(#sw-gradient-0)" d="M0,210L48,175C96,140,192,70,288,75C384,80,480,160,576,165C672,170,768,100,864,105C960,110,1056,190,1152,195C1248,200,1344,130,1440,120C1536,110,1632,160,1728,155C1824,150,1920,90,2016,90C2112,90,2208,150,2304,145C2400,140,2496,70,2592,55C2688,40,2784,80,2880,90C2976,100,3072,80,3168,105C3264,130,3360,200,3456,215C3552,230,3648,190,3744,160C3840,130,3936,110,4032,130C4128,150,4224,210,4320,215C4416,220,4512,170,4608,135C4704,100,4800,80,4896,95C4992,110,5088,160,5184,150C5280,140,5376,70,5472,60C5568,50,5664,100,5760,145C5856,190,5952,230,6048,230C6144,230,6240,190,6336,155C6432,120,6528,90,6624,90C6720,90,6816,120,6864,135L6912,150L6912,300L6864,300C6816,300,6720,300,6624,300C6528,300,6432,300,6336,300C6240,300,6144,300,6048,300C5952,300,5856,300,5760,300C5664,300,5568,300,5472,300C5376,300,5280,300,5184,300C5088,300,4992,300,4896,300C4800,300,4704,300,4608,300C4512,300,4416,300,4320,300C4224,300,4128,300,4032,300C3936,300,3840,300,3744,300C3648,300,3552,300,3456,300C3360,300,3264,300,3168,300C3072,300,2976,300,2880,300C2784,300,2688,300,2592,300C2496,300,2400,300,2304,300C2208,300,2112,300,2016,300C1920,300,1824,300,1728,300C1632,300,1536,300,1440,300C1344,300,1248,300,1152,300C1056,300,960,300,864,300C768,300,672,300,576,300C480,300,384,300,288,300C192,300,96,300,48,300L0,300Z"></path><defs><linearGradient id="sw-gradient-1" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(92, 0, 153, 1)" offset="0%"></stop><stop stop-color="rgba(92, 0, 153, 1)" offset="100%"></stop></linearGradient></defs><path style="transform:translate(0, 50px); opacity:0.9" fill="url(#sw-gradient-1)" d="M0,270L48,250C96,230,192,190,288,170C384,150,480,150,576,135C672,120,768,90,864,75C960,60,1056,60,1152,90C1248,120,1344,180,1440,170C1536,160,1632,80,1728,50C1824,20,1920,40,2016,85C2112,130,2208,200,2304,195C2400,190,2496,110,2592,95C2688,80,2784,130,2880,165C2976,200,3072,220,3168,205C3264,190,3360,140,3456,110C3552,80,3648,70,3744,70C3840,70,3936,80,4032,105C4128,130,4224,170,4320,195C4416,220,4512,230,4608,240C4704,250,4800,260,4896,235C4992,210,5088,150,5184,150C5280,150,5376,210,5472,205C5568,200,5664,130,5760,90C5856,50,5952,40,6048,65C6144,90,6240,150,6336,145C6432,140,6528,70,6624,45C6720,20,6816,40,6864,50L6912,60L6912,300L6864,300C6816,300,6720,300,6624,300C6528,300,6432,300,6336,300C6240,300,6144,300,6048,300C5952,300,5856,300,5760,300C5664,300,5568,300,5472,300C5376,300,5280,300,5184,300C5088,300,4992,300,4896,300C4800,300,4704,300,4608,300C4512,300,4416,300,4320,300C4224,300,4128,300,4032,300C3936,300,3840,300,3744,300C3648,300,3552,300,3456,300C3360,300,3264,300,3168,300C3072,300,2976,300,2880,300C2784,300,2688,300,2592,300C2496,300,2400,300,2304,300C2208,300,2112,300,2016,300C1920,300,1824,300,1728,300C1632,300,1536,300,1440,300C1344,300,1248,300,1152,300C1056,300,960,300,864,300C768,300,672,300,576,300C480,300,384,300,288,300C192,300,96,300,48,300L0,300Z"></path><defs><linearGradient id="sw-gradient-2" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(200, 107, 250, 1)" offset="0%"></stop><stop stop-color="rgba(200, 107, 250, 1)" offset="100%"></stop></linearGradient></defs><path style="transform:translate(0, 100px); opacity:1" fill="url(#sw-gradient-2)" d="M0,150L48,160C96,170,192,190,288,170C384,150,480,90,576,60C672,30,768,30,864,60C960,90,1056,150,1152,145C1248,140,1344,70,1440,75C1536,80,1632,160,1728,195C1824,230,1920,220,2016,195C2112,170,2208,130,2304,140C2400,150,2496,210,2592,210C2688,210,2784,150,2880,145C2976,140,3072,190,3168,175C3264,160,3360,80,3456,70C3552,60,3648,120,3744,135C3840,150,3936,120,4032,90C4128,60,4224,30,4320,25C4416,20,4512,40,4608,65C4704,90,4800,120,4896,115C4992,110,5088,70,5184,65C5280,60,5376,90,5472,100C5568,110,5664,100,5760,120C5856,140,5952,190,6048,210C6144,230,6240,220,6336,205C6432,190,6528,170,6624,175C6720,180,6816,210,6864,225L6912,240L6912,300L6864,300C6816,300,6720,300,6624,300C6528,300,6432,300,6336,300C6240,300,6144,300,6048,300C5952,300,5856,300,5760,300C5664,300,5568,300,5472,300C5376,300,5280,300,5184,300C5088,300,4992,300,4896,300C4800,300,4704,300,4608,300C4512,300,4416,300,4320,300C4224,300,4128,300,4032,300C3936,300,3840,300,3744,300C3648,300,3552,300,3456,300C3360,300,3264,300,3168,300C3072,300,2976,300,2880,300C2784,300,2688,300,2592,300C2496,300,2400,300,2304,300C2208,300,2112,300,2016,300C1920,300,1824,300,1728,300C1632,300,1536,300,1440,300C1344,300,1248,300,1152,300C1056,300,960,300,864,300C768,300,672,300,576,300C480,300,384,300,288,300C192,300,96,300,48,300L0,300Z"></path></svg>
-
-    <div class= "tutorial-container">
-    <h3>Tutorial</h3>
+        <div class="tutorial-container">
+            <h3>Tutorial</h3>
+        </div>
     </div>
-</div>
-<div class="basic-container"> 
-   <svg id="wave" style="position: absolute;top: -50px;transform:rotate(180deg); transition: 0.3s; height: 400px; width: 100%;" viewBox="0 0 1440 300" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(61, 0, 102, 1)" offset="0%"></stop><stop stop-color="rgba(61, 0, 102, 1)" offset="100%"></stop></linearGradient></defs><path style="transform:translate(0, 0px); opacity:1" fill="url(#sw-gradient-0)" d="M0,150L48,145C96,140,192,130,288,145C384,160,480,200,576,200C672,200,768,160,864,130C960,100,1056,80,1152,85C1248,90,1344,120,1440,120C1536,120,1632,90,1728,90C1824,90,1920,120,2016,125C2112,130,2208,110,2304,130C2400,150,2496,210,2592,210C2688,210,2784,150,2880,150C2976,150,3072,210,3168,240C3264,270,3360,270,3456,230C3552,190,3648,110,3744,90C3840,70,3936,110,4032,120C4128,130,4224,110,4320,100C4416,90,4512,90,4608,95C4704,100,4800,110,4896,110C4992,110,5088,100,5184,120C5280,140,5376,190,5472,195C5568,200,5664,160,5760,160C5856,160,5952,200,6048,215C6144,230,6240,220,6336,195C6432,170,6528,130,6624,120C6720,110,6816,130,6864,140L6912,150L6912,300L6864,300C6816,300,6720,300,6624,300C6528,300,6432,300,6336,300C6240,300,6144,300,6048,300C5952,300,5856,300,5760,300C5664,300,5568,300,5472,300C5376,300,5280,300,5184,300C5088,300,4992,300,4896,300C4800,300,4704,300,4608,300C4512,300,4416,300,4320,300C4224,300,4128,300,4032,300C3936,300,3840,300,3744,300C3648,300,3552,300,3456,300C3360,300,3264,300,3168,300C3072,300,2976,300,2880,300C2784,300,2688,300,2592,300C2496,300,2400,300,2304,300C2208,300,2112,300,2016,300C1920,300,1824,300,1728,300C1632,300,1536,300,1440,300C1344,300,1248,300,1152,300C1056,300,960,300,864,300C768,300,672,300,576,300C480,300,384,300,288,300C192,300,96,300,48,300L0,300Z"></path><defs><linearGradient id="sw-gradient-1" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(92, 0, 153, 1)" offset="0%"></stop><stop stop-color="rgba(92, 0, 153, 1)" offset="100%"></stop></linearGradient></defs><path style="transform:translate(0, 50px); opacity:0.9" fill="url(#sw-gradient-1)" d="M0,30L48,25C96,20,192,10,288,20C384,30,480,60,576,85C672,110,768,130,864,140C960,150,1056,150,1152,130C1248,110,1344,70,1440,70C1536,70,1632,110,1728,135C1824,160,1920,170,2016,185C2112,200,2208,220,2304,190C2400,160,2496,80,2592,80C2688,80,2784,160,2880,200C2976,240,3072,240,3168,215C3264,190,3360,140,3456,135C3552,130,3648,170,3744,180C3840,190,3936,170,4032,140C4128,110,4224,70,4320,80C4416,90,4512,150,4608,150C4704,150,4800,90,4896,75C4992,60,5088,90,5184,125C5280,160,5376,200,5472,220C5568,240,5664,240,5760,210C5856,180,5952,120,6048,110C6144,100,6240,140,6336,135C6432,130,6528,80,6624,60C6720,40,6816,50,6864,55L6912,60L6912,300L6864,300C6816,300,6720,300,6624,300C6528,300,6432,300,6336,300C6240,300,6144,300,6048,300C5952,300,5856,300,5760,300C5664,300,5568,300,5472,300C5376,300,5280,300,5184,300C5088,300,4992,300,4896,300C4800,300,4704,300,4608,300C4512,300,4416,300,4320,300C4224,300,4128,300,4032,300C3936,300,3840,300,3744,300C3648,300,3552,300,3456,300C3360,300,3264,300,3168,300C3072,300,2976,300,2880,300C2784,300,2688,300,2592,300C2496,300,2400,300,2304,300C2208,300,2112,300,2016,300C1920,300,1824,300,1728,300C1632,300,1536,300,1440,300C1344,300,1248,300,1152,300C1056,300,960,300,864,300C768,300,672,300,576,300C480,300,384,300,288,300C192,300,96,300,48,300L0,300Z"></path><defs><linearGradient id="sw-gradient-2" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(200, 107, 250, 1)" offset="0%"></stop><stop stop-color="rgba(200, 107, 250, 1)" offset="100%"></stop></linearGradient></defs><path style="transform:translate(0, 100px); opacity:1" fill="url(#sw-gradient-2)" d="M0,60L48,90C96,120,192,180,288,190C384,200,480,160,576,120C672,80,768,40,864,50C960,60,1056,120,1152,125C1248,130,1344,80,1440,50C1536,20,1632,10,1728,15C1824,20,1920,40,2016,75C2112,110,2208,160,2304,195C2400,230,2496,250,2592,260C2688,270,2784,270,2880,265C2976,260,3072,250,3168,240C3264,230,3360,220,3456,215C3552,210,3648,210,3744,180C3840,150,3936,90,4032,80C4128,70,4224,110,4320,125C4416,140,4512,130,4608,150C4704,170,4800,220,4896,205C4992,190,5088,110,5184,100C5280,90,5376,150,5472,180C5568,210,5664,210,5760,175C5856,140,5952,70,6048,40C6144,10,6240,20,6336,25C6432,30,6528,30,6624,70C6720,110,6816,190,6864,230L6912,270L6912,300L6864,300C6816,300,6720,300,6624,300C6528,300,6432,300,6336,300C6240,300,6144,300,6048,300C5952,300,5856,300,5760,300C5664,300,5568,300,5472,300C5376,300,5280,300,5184,300C5088,300,4992,300,4896,300C4800,300,4704,300,4608,300C4512,300,4416,300,4320,300C4224,300,4128,300,4032,300C3936,300,3840,300,3744,300C3648,300,3552,300,3456,300C3360,300,3264,300,3168,300C3072,300,2976,300,2880,300C2784,300,2688,300,2592,300C2496,300,2400,300,2304,300C2208,300,2112,300,2016,300C1920,300,1824,300,1728,300C1632,300,1536,300,1440,300C1344,300,1248,300,1152,300C1056,300,960,300,864,300C768,300,672,300,576,300C480,300,384,300,288,300C192,300,96,300,48,300L0,300Z"></path></svg>
-    <h3> basic moves</h3>
-    <div class="grid grid-cols-4 gap-4">
- <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">R</div>
- <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">R'</div>
- <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">L</div>
- <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">L'</div>
- <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">U</div>
- <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">U'</div>
- <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">D</div>
- <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">D'</div>
- <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">F</div>
- <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">F'</div>
- <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">B</div>
- <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">B'</div>
- <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">E</div>
- <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">E'</div>
- <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">M</div>
- <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">M'</div>
- <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">S</div>
- <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">S'</div>
- <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">X</div>
- <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">X'</div>
- <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">Y</div>
- <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">Y'</div>
- <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">Z</div>
- <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">Z'</div>
-</div>
-</div>
-<svg id="wave" style="transform:rotate(0deg); transition: 0.3s" viewBox="0 0 1440 360" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(61, 0, 102, 1)" offset="0%"></stop><stop stop-color="rgba(61, 0, 102, 1)" offset="100%"></stop></linearGradient></defs><path style="transform:translate(0, 0px); opacity:1" fill="url(#sw-gradient-0)" d="M0,180L26.7,174C53.3,168,107,156,160,174C213.3,192,267,240,320,240C373.3,240,427,192,480,156C533.3,120,587,96,640,102C693.3,108,747,144,800,144C853.3,144,907,108,960,108C1013.3,108,1067,144,1120,150C1173.3,156,1227,132,1280,156C1333.3,180,1387,252,1440,252C1493.3,252,1547,180,1600,180C1653.3,180,1707,252,1760,288C1813.3,324,1867,324,1920,276C1973.3,228,2027,132,2080,108C2133.3,84,2187,132,2240,144C2293.3,156,2347,132,2400,120C2453.3,108,2507,108,2560,114C2613.3,120,2667,132,2720,132C2773.3,132,2827,120,2880,144C2933.3,168,2987,228,3040,234C3093.3,240,3147,192,3200,192C3253.3,192,3307,240,3360,258C3413.3,276,3467,264,3520,234C3573.3,204,3627,156,3680,144C3733.3,132,3787,156,3813,168L3840,180L3840,360L3813.3,360C3786.7,360,3733,360,3680,360C3626.7,360,3573,360,3520,360C3466.7,360,3413,360,3360,360C3306.7,360,3253,360,3200,360C3146.7,360,3093,360,3040,360C2986.7,360,2933,360,2880,360C2826.7,360,2773,360,2720,360C2666.7,360,2613,360,2560,360C2506.7,360,2453,360,2400,360C2346.7,360,2293,360,2240,360C2186.7,360,2133,360,2080,360C2026.7,360,1973,360,1920,360C1866.7,360,1813,360,1760,360C1706.7,360,1653,360,1600,360C1546.7,360,1493,360,1440,360C1386.7,360,1333,360,1280,360C1226.7,360,1173,360,1120,360C1066.7,360,1013,360,960,360C906.7,360,853,360,800,360C746.7,360,693,360,640,360C586.7,360,533,360,480,360C426.7,360,373,360,320,360C266.7,360,213,360,160,360C106.7,360,53,360,27,360L0,360Z"></path><defs><linearGradient id="sw-gradient-1" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(92, 0, 153, 1)" offset="0%"></stop><stop stop-color="rgba(92, 0, 153, 1)" offset="100%"></stop></linearGradient></defs><path style="transform:translate(0, 50px); opacity:0.9" fill="url(#sw-gradient-1)" d="M0,36L26.7,30C53.3,24,107,12,160,24C213.3,36,267,72,320,102C373.3,132,427,156,480,168C533.3,180,587,180,640,156C693.3,132,747,84,800,84C853.3,84,907,132,960,162C1013.3,192,1067,204,1120,222C1173.3,240,1227,264,1280,228C1333.3,192,1387,96,1440,96C1493.3,96,1547,192,1600,240C1653.3,288,1707,288,1760,258C1813.3,228,1867,168,1920,162C1973.3,156,2027,204,2080,216C2133.3,228,2187,204,2240,168C2293.3,132,2347,84,2400,96C2453.3,108,2507,180,2560,180C2613.3,180,2667,108,2720,90C2773.3,72,2827,108,2880,150C2933.3,192,2987,240,3040,264C3093.3,288,3147,288,3200,252C3253.3,216,3307,144,3360,132C3413.3,120,3467,168,3520,162C3573.3,156,3627,96,3680,72C3733.3,48,3787,60,3813,66L3840,72L3840,360L3813.3,360C3786.7,360,3733,360,3680,360C3626.7,360,3573,360,3520,360C3466.7,360,3413,360,3360,360C3306.7,360,3253,360,3200,360C3146.7,360,3093,360,3040,360C2986.7,360,2933,360,2880,360C2826.7,360,2773,360,2720,360C2666.7,360,2613,360,2560,360C2506.7,360,2453,360,2400,360C2346.7,360,2293,360,2240,360C2186.7,360,2133,360,2080,360C2026.7,360,1973,360,1920,360C1866.7,360,1813,360,1760,360C1706.7,360,1653,360,1600,360C1546.7,360,1493,360,1440,360C1386.7,360,1333,360,1280,360C1226.7,360,1173,360,1120,360C1066.7,360,1013,360,960,360C906.7,360,853,360,800,360C746.7,360,693,360,640,360C586.7,360,533,360,480,360C426.7,360,373,360,320,360C266.7,360,213,360,160,360C106.7,360,53,360,27,360L0,360Z"></path><defs><linearGradient id="sw-gradient-2" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(200, 107, 250, 1)" offset="0%"></stop><stop stop-color="rgba(200, 107, 250, 1)" offset="100%"></stop></linearGradient></defs><path style="transform:translate(0, 100px); opacity:0.8" fill="url(#sw-gradient-2)" d="M0,72L26.7,108C53.3,144,107,216,160,228C213.3,240,267,192,320,144C373.3,96,427,48,480,60C533.3,72,587,144,640,150C693.3,156,747,96,800,60C853.3,24,907,12,960,18C1013.3,24,1067,48,1120,90C1173.3,132,1227,192,1280,234C1333.3,276,1387,300,1440,312C1493.3,324,1547,324,1600,318C1653.3,312,1707,300,1760,288C1813.3,276,1867,264,1920,258C1973.3,252,2027,252,2080,216C2133.3,180,2187,108,2240,96C2293.3,84,2347,132,2400,150C2453.3,168,2507,156,2560,180C2613.3,204,2667,264,2720,246C2773.3,228,2827,132,2880,120C2933.3,108,2987,180,3040,216C3093.3,252,3147,252,3200,210C3253.3,168,3307,84,3360,48C3413.3,12,3467,24,3520,30C3573.3,36,3627,36,3680,84C3733.3,132,3787,228,3813,276L3840,324L3840,360L3813.3,360C3786.7,360,3733,360,3680,360C3626.7,360,3573,360,3520,360C3466.7,360,3413,360,3360,360C3306.7,360,3253,360,3200,360C3146.7,360,3093,360,3040,360C2986.7,360,2933,360,2880,360C2826.7,360,2773,360,2720,360C2666.7,360,2613,360,2560,360C2506.7,360,2453,360,2400,360C2346.7,360,2293,360,2240,360C2186.7,360,2133,360,2080,360C2026.7,360,1973,360,1920,360C1866.7,360,1813,360,1760,360C1706.7,360,1653,360,1600,360C1546.7,360,1493,360,1440,360C1386.7,360,1333,360,1280,360C1226.7,360,1173,360,1120,360C1066.7,360,1013,360,960,360C906.7,360,853,360,800,360C746.7,360,693,360,640,360C586.7,360,533,360,480,360C426.7,360,373,360,320,360C266.7,360,213,360,160,360C106.7,360,53,360,27,360L0,360Z"></path></svg>
+    <div class="basic-container">
+        <svg id="wave"
+            style="position: absolute;top: -50px;transform:rotate(180deg); transition: 0.3s; height: 400px; width: 100%;"
+            viewBox="0 0 1440 300" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0">
+                    <stop stop-color="rgba(61, 0, 102, 1)" offset="0%"></stop>
+                    <stop stop-color="rgba(61, 0, 102, 1)" offset="100%"></stop>
+                </linearGradient>
+            </defs>
+            <path style="transform:translate(0, 0px); opacity:1" fill="url(#sw-gradient-0)"
+                d="M0,150L48,145C96,140,192,130,288,145C384,160,480,200,576,200C672,200,768,160,864,130C960,100,1056,80,1152,85C1248,90,1344,120,1440,120C1536,120,1632,90,1728,90C1824,90,1920,120,2016,125C2112,130,2208,110,2304,130C2400,150,2496,210,2592,210C2688,210,2784,150,2880,150C2976,150,3072,210,3168,240C3264,270,3360,270,3456,230C3552,190,3648,110,3744,90C3840,70,3936,110,4032,120C4128,130,4224,110,4320,100C4416,90,4512,90,4608,95C4704,100,4800,110,4896,110C4992,110,5088,100,5184,120C5280,140,5376,190,5472,195C5568,200,5664,160,5760,160C5856,160,5952,200,6048,215C6144,230,6240,220,6336,195C6432,170,6528,130,6624,120C6720,110,6816,130,6864,140L6912,150L6912,300L6864,300C6816,300,6720,300,6624,300C6528,300,6432,300,6336,300C6240,300,6144,300,6048,300C5952,300,5856,300,5760,300C5664,300,5568,300,5472,300C5376,300,5280,300,5184,300C5088,300,4992,300,4896,300C4800,300,4704,300,4608,300C4512,300,4416,300,4320,300C4224,300,4128,300,4032,300C3936,300,3840,300,3744,300C3648,300,3552,300,3456,300C3360,300,3264,300,3168,300C3072,300,2976,300,2880,300C2784,300,2688,300,2592,300C2496,300,2400,300,2304,300C2208,300,2112,300,2016,300C1920,300,1824,300,1728,300C1632,300,1536,300,1440,300C1344,300,1248,300,1152,300C1056,300,960,300,864,300C768,300,672,300,576,300C480,300,384,300,288,300C192,300,96,300,48,300L0,300Z">
+            </path>
+            <defs>
+                <linearGradient id="sw-gradient-1" x1="0" x2="0" y1="1" y2="0">
+                    <stop stop-color="rgba(92, 0, 153, 1)" offset="0%"></stop>
+                    <stop stop-color="rgba(92, 0, 153, 1)" offset="100%"></stop>
+                </linearGradient>
+            </defs>
+            <path style="transform:translate(0, 50px); opacity:0.9" fill="url(#sw-gradient-1)"
+                d="M0,30L48,25C96,20,192,10,288,20C384,30,480,60,576,85C672,110,768,130,864,140C960,150,1056,150,1152,130C1248,110,1344,70,1440,70C1536,70,1632,110,1728,135C1824,160,1920,170,2016,185C2112,200,2208,220,2304,190C2400,160,2496,80,2592,80C2688,80,2784,160,2880,200C2976,240,3072,240,3168,215C3264,190,3360,140,3456,135C3552,130,3648,170,3744,180C3840,190,3936,170,4032,140C4128,110,4224,70,4320,80C4416,90,4512,150,4608,150C4704,150,4800,90,4896,75C4992,60,5088,90,5184,125C5280,160,5376,200,5472,220C5568,240,5664,240,5760,210C5856,180,5952,120,6048,110C6144,100,6240,140,6336,135C6432,130,6528,80,6624,60C6720,40,6816,50,6864,55L6912,60L6912,300L6864,300C6816,300,6720,300,6624,300C6528,300,6432,300,6336,300C6240,300,6144,300,6048,300C5952,300,5856,300,5760,300C5664,300,5568,300,5472,300C5376,300,5280,300,5184,300C5088,300,4992,300,4896,300C4800,300,4704,300,4608,300C4512,300,4416,300,4320,300C4224,300,4128,300,4032,300C3936,300,3840,300,3744,300C3648,300,3552,300,3456,300C3360,300,3264,300,3168,300C3072,300,2976,300,2880,300C2784,300,2688,300,2592,300C2496,300,2400,300,2304,300C2208,300,2112,300,2016,300C1920,300,1824,300,1728,300C1632,300,1536,300,1440,300C1344,300,1248,300,1152,300C1056,300,960,300,864,300C768,300,672,300,576,300C480,300,384,300,288,300C192,300,96,300,48,300L0,300Z">
+            </path>
+            <defs>
+                <linearGradient id="sw-gradient-2" x1="0" x2="0" y1="1" y2="0">
+                    <stop stop-color="rgba(200, 107, 250, 1)" offset="0%"></stop>
+                    <stop stop-color="rgba(200, 107, 250, 1)" offset="100%"></stop>
+                </linearGradient>
+            </defs>
+            <path style="transform:translate(0, 100px); opacity:1" fill="url(#sw-gradient-2)"
+                d="M0,60L48,90C96,120,192,180,288,190C384,200,480,160,576,120C672,80,768,40,864,50C960,60,1056,120,1152,125C1248,130,1344,80,1440,50C1536,20,1632,10,1728,15C1824,20,1920,40,2016,75C2112,110,2208,160,2304,195C2400,230,2496,250,2592,260C2688,270,2784,270,2880,265C2976,260,3072,250,3168,240C3264,230,3360,220,3456,215C3552,210,3648,210,3744,180C3840,150,3936,90,4032,80C4128,70,4224,110,4320,125C4416,140,4512,130,4608,150C4704,170,4800,220,4896,205C4992,190,5088,110,5184,100C5280,90,5376,150,5472,180C5568,210,5664,210,5760,175C5856,140,5952,70,6048,40C6144,10,6240,20,6336,25C6432,30,6528,30,6624,70C6720,110,6816,190,6864,230L6912,270L6912,300L6864,300C6816,300,6720,300,6624,300C6528,300,6432,300,6336,300C6240,300,6144,300,6048,300C5952,300,5856,300,5760,300C5664,300,5568,300,5472,300C5376,300,5280,300,5184,300C5088,300,4992,300,4896,300C4800,300,4704,300,4608,300C4512,300,4416,300,4320,300C4224,300,4128,300,4032,300C3936,300,3840,300,3744,300C3648,300,3552,300,3456,300C3360,300,3264,300,3168,300C3072,300,2976,300,2880,300C2784,300,2688,300,2592,300C2496,300,2400,300,2304,300C2208,300,2112,300,2016,300C1920,300,1824,300,1728,300C1632,300,1536,300,1440,300C1344,300,1248,300,1152,300C1056,300,960,300,864,300C768,300,672,300,576,300C480,300,384,300,288,300C192,300,96,300,48,300L0,300Z">
+            </path>
+        </svg>
+        <h3> basic moves</h3>
+        <div class="grid grid-cols-4 gap-4">
+            <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">R</div>
+            <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">R'</div>
+            <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">L</div>
+            <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">L'</div>
+            <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">U</div>
+            <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">U'</div>
+            <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">D</div>
+            <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">D'</div>
+            <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">F</div>
+            <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">F'</div>
+            <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">B</div>
+            <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">B'</div>
+            <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">E</div>
+            <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">E'</div>
+            <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">M</div>
+            <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">M'</div>
+            <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">S</div>
+            <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">S'</div>
+            <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">X</div>
+            <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">X'</div>
+            <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">Y</div>
+            <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">Y'</div>
+            <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">Z</div>
+            <div style=" border: 3px solid var(--purple-1); height: 250px;width: 350px;border-radius: 3px;">Z'</div>
+        </div>
+    </div>
+    <svg id="wave" style="transform:rotate(0deg); transition: 0.3s" viewBox="0 0 1440 360" version="1.1"
+        xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0">
+                <stop stop-color="rgba(61, 0, 102, 1)" offset="0%"></stop>
+                <stop stop-color="rgba(61, 0, 102, 1)" offset="100%"></stop>
+            </linearGradient>
+        </defs>
+        <path style="transform:translate(0, 0px); opacity:1" fill="url(#sw-gradient-0)"
+            d="M0,180L26.7,174C53.3,168,107,156,160,174C213.3,192,267,240,320,240C373.3,240,427,192,480,156C533.3,120,587,96,640,102C693.3,108,747,144,800,144C853.3,144,907,108,960,108C1013.3,108,1067,144,1120,150C1173.3,156,1227,132,1280,156C1333.3,180,1387,252,1440,252C1493.3,252,1547,180,1600,180C1653.3,180,1707,252,1760,288C1813.3,324,1867,324,1920,276C1973.3,228,2027,132,2080,108C2133.3,84,2187,132,2240,144C2293.3,156,2347,132,2400,120C2453.3,108,2507,108,2560,114C2613.3,120,2667,132,2720,132C2773.3,132,2827,120,2880,144C2933.3,168,2987,228,3040,234C3093.3,240,3147,192,3200,192C3253.3,192,3307,240,3360,258C3413.3,276,3467,264,3520,234C3573.3,204,3627,156,3680,144C3733.3,132,3787,156,3813,168L3840,180L3840,360L3813.3,360C3786.7,360,3733,360,3680,360C3626.7,360,3573,360,3520,360C3466.7,360,3413,360,3360,360C3306.7,360,3253,360,3200,360C3146.7,360,3093,360,3040,360C2986.7,360,2933,360,2880,360C2826.7,360,2773,360,2720,360C2666.7,360,2613,360,2560,360C2506.7,360,2453,360,2400,360C2346.7,360,2293,360,2240,360C2186.7,360,2133,360,2080,360C2026.7,360,1973,360,1920,360C1866.7,360,1813,360,1760,360C1706.7,360,1653,360,1600,360C1546.7,360,1493,360,1440,360C1386.7,360,1333,360,1280,360C1226.7,360,1173,360,1120,360C1066.7,360,1013,360,960,360C906.7,360,853,360,800,360C746.7,360,693,360,640,360C586.7,360,533,360,480,360C426.7,360,373,360,320,360C266.7,360,213,360,160,360C106.7,360,53,360,27,360L0,360Z">
+        </path>
+        <defs>
+            <linearGradient id="sw-gradient-1" x1="0" x2="0" y1="1" y2="0">
+                <stop stop-color="rgba(92, 0, 153, 1)" offset="0%"></stop>
+                <stop stop-color="rgba(92, 0, 153, 1)" offset="100%"></stop>
+            </linearGradient>
+        </defs>
+        <path style="transform:translate(0, 50px); opacity:0.9" fill="url(#sw-gradient-1)"
+            d="M0,36L26.7,30C53.3,24,107,12,160,24C213.3,36,267,72,320,102C373.3,132,427,156,480,168C533.3,180,587,180,640,156C693.3,132,747,84,800,84C853.3,84,907,132,960,162C1013.3,192,1067,204,1120,222C1173.3,240,1227,264,1280,228C1333.3,192,1387,96,1440,96C1493.3,96,1547,192,1600,240C1653.3,288,1707,288,1760,258C1813.3,228,1867,168,1920,162C1973.3,156,2027,204,2080,216C2133.3,228,2187,204,2240,168C2293.3,132,2347,84,2400,96C2453.3,108,2507,180,2560,180C2613.3,180,2667,108,2720,90C2773.3,72,2827,108,2880,150C2933.3,192,2987,240,3040,264C3093.3,288,3147,288,3200,252C3253.3,216,3307,144,3360,132C3413.3,120,3467,168,3520,162C3573.3,156,3627,96,3680,72C3733.3,48,3787,60,3813,66L3840,72L3840,360L3813.3,360C3786.7,360,3733,360,3680,360C3626.7,360,3573,360,3520,360C3466.7,360,3413,360,3360,360C3306.7,360,3253,360,3200,360C3146.7,360,3093,360,3040,360C2986.7,360,2933,360,2880,360C2826.7,360,2773,360,2720,360C2666.7,360,2613,360,2560,360C2506.7,360,2453,360,2400,360C2346.7,360,2293,360,2240,360C2186.7,360,2133,360,2080,360C2026.7,360,1973,360,1920,360C1866.7,360,1813,360,1760,360C1706.7,360,1653,360,1600,360C1546.7,360,1493,360,1440,360C1386.7,360,1333,360,1280,360C1226.7,360,1173,360,1120,360C1066.7,360,1013,360,960,360C906.7,360,853,360,800,360C746.7,360,693,360,640,360C586.7,360,533,360,480,360C426.7,360,373,360,320,360C266.7,360,213,360,160,360C106.7,360,53,360,27,360L0,360Z">
+        </path>
+        <defs>
+            <linearGradient id="sw-gradient-2" x1="0" x2="0" y1="1" y2="0">
+                <stop stop-color="rgba(200, 107, 250, 1)" offset="0%"></stop>
+                <stop stop-color="rgba(200, 107, 250, 1)" offset="100%"></stop>
+            </linearGradient>
+        </defs>
+        <path style="transform:translate(0, 100px); opacity:0.8" fill="url(#sw-gradient-2)"
+            d="M0,72L26.7,108C53.3,144,107,216,160,228C213.3,240,267,192,320,144C373.3,96,427,48,480,60C533.3,72,587,144,640,150C693.3,156,747,96,800,60C853.3,24,907,12,960,18C1013.3,24,1067,48,1120,90C1173.3,132,1227,192,1280,234C1333.3,276,1387,300,1440,312C1493.3,324,1547,324,1600,318C1653.3,312,1707,300,1760,288C1813.3,276,1867,264,1920,258C1973.3,252,2027,252,2080,216C2133.3,180,2187,108,2240,96C2293.3,84,2347,132,2400,150C2453.3,168,2507,156,2560,180C2613.3,204,2667,264,2720,246C2773.3,228,2827,132,2880,120C2933.3,108,2987,180,3040,216C3093.3,252,3147,252,3200,210C3253.3,168,3307,84,3360,48C3413.3,12,3467,24,3520,30C3573.3,36,3627,36,3680,84C3733.3,132,3787,228,3813,276L3840,324L3840,360L3813.3,360C3786.7,360,3733,360,3680,360C3626.7,360,3573,360,3520,360C3466.7,360,3413,360,3360,360C3306.7,360,3253,360,3200,360C3146.7,360,3093,360,3040,360C2986.7,360,2933,360,2880,360C2826.7,360,2773,360,2720,360C2666.7,360,2613,360,2560,360C2506.7,360,2453,360,2400,360C2346.7,360,2293,360,2240,360C2186.7,360,2133,360,2080,360C2026.7,360,1973,360,1920,360C1866.7,360,1813,360,1760,360C1706.7,360,1653,360,1600,360C1546.7,360,1493,360,1440,360C1386.7,360,1333,360,1280,360C1226.7,360,1173,360,1120,360C1066.7,360,1013,360,960,360C906.7,360,853,360,800,360C746.7,360,693,360,640,360C586.7,360,533,360,480,360C426.7,360,373,360,320,360C266.7,360,213,360,160,360C106.7,360,53,360,27,360L0,360Z">
+        </path>
+    </svg>
 
 
     <script>
 
-  
+
     </script>
 </body>
+
 </html>

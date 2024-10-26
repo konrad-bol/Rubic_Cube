@@ -8,7 +8,6 @@ defmodule Solver.Solver do
     |> Solver.UperCross.Cross.make_upercross()
 
     |> Solver.UperCorner.Corner.make_corner()
-    IO.inspect(moves)
-    cube
+
   end
 end

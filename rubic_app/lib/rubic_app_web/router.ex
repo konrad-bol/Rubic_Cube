@@ -1,6 +1,6 @@
 defmodule RubicAppWeb.Router do
   use RubicAppWeb, :router
-
+  alias RubicAppWeb.Router.Helpers, as: Routes
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -49,6 +49,8 @@ defmodule RubicAppWeb.Router do
     post "/rubic/move", PageController, :move
     post "/rubic/mix", PageController, :mix_cube
     put "/rubic/solver", PageController, :solve_cube
+    get "/rubic/next_hint", PageController, :next_hint
+    get "/rubic/prev_hint", PageController, :prev_hint
   end
 
   # Other scopes may use custom stacks.

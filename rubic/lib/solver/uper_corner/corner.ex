@@ -5,6 +5,7 @@ defmodule Solver.UperCorner.Corner do
     {cube,moves}={cube,moves}
     |> rotate_corner()
     |> orient_corner()
+    |> IO.inspect()
   end
 
   def rotate_corner({cube,moves}) do
