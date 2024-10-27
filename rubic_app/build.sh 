@@ -12,6 +12,7 @@ MIX_ENV=prod mix compile
 MIX_ENV=prod mix assets.build
 # Build minified assets
 MIX_ENV=prod mix assets.deploy
+MIX_ENV=prod mix phx.digest
 
 # Create server script, Build the release, and overwrite the existing release directory
 MIX_ENV=prod mix phx.gen.release
