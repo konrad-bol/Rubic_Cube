@@ -11,6 +11,7 @@ defmodule RubicAppWeb.PageController do
   def new_rubic(conn, _params) do
     conn
     |> assign(:cube, %Rubic{})
+    |>put_session(:list_of_hints,[])
     |> assign(:list_of_hints, [])
     |> assign(:form, Phoenix.HTML.FormData.to_form(%{"guess" => 3}, as: "make_move"))
     |> assign(:method, :put)
