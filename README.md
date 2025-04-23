@@ -12,11 +12,11 @@ This project is a web application that simulates a 3×3×3 Rubik’s Cube in a 2
   - **Phoenix** for the web framework
   - **HTML/CSS** for the frontend interface
 - **API endpoints**:
-  - `GET /{move}`: Execute a single move (e.g., `R`, `L'`).
-  - `POST /sequence`: Execute a sequence of moves.
-  - `GET /scramble`: Apply a random scramble of 20 moves.
+  - `PUT /{move}`: Execute a single move (e.g., `R`, `L'`).
+  - `POST /move`: Execute a sequence of moves.
+  - `GET /mix`: Apply a random scramble of 20 moves.
   - `GET /reset`: Reset cube to the solved state.
-  - `GET /solve`: Return the LBL solution sequence for the current state.
+  - `GET /solver`: Return the LBL solution sequence for the current state.
 
 ## Explanation of the Visual Component
 - **Circle-based layout**: Instead of the conventional 2D net or 3D rendering, the cube is unfolded into 9 circles, each representing one face of the cube.
