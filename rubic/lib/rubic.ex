@@ -12,6 +12,7 @@ defstruct [
 
 
 ]
+
   def tally(cube) do
    [
       vrs: cube.vertical_right_side,
