@@ -296,7 +296,7 @@ defmodule RubicAppWeb.PageController do
     |> assign(:cube, cube)
     |> assign(:list_of_hints, hints)
     |> assign(:current_hint_index, current_index)
-   |> assign(:form, Phoenix.HTML.FormData.to_form(%{}, as: :rubic))
+    |> assign(:form, Phoenix.HTML.FormData.to_form(%{}, as: :rubic))
     |> assign(:method, :put)
     |> render(:rubic, layout: false)
   end
